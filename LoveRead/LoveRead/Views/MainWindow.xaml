@@ -1,11 +1,11 @@
-﻿<Window x:Class="LoveRead.MainWindow"
+﻿<Window x:Class="LoveRead.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LoveRead"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="LoveRead" Height="350" Width="525"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <Grid>
         
     </Grid>
