@@ -1,3 +1,4 @@
+using System.Text;
 using GalaSoft.MvvmLight.Ioc;
 using LoveRead.Services;
 using Microsoft.Practices.ServiceLocation;
@@ -9,7 +10,7 @@ namespace LoveRead.ViewModel
     {
         public ViewModelLocator()
         {
-            var browser = new ScrapingBrowser();
+            var browser = new ScrapingBrowser{Encoding = Encoding.GetEncoding("windows-1251")};
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
