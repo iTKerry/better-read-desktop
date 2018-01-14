@@ -10,6 +10,7 @@ namespace LoveRead.ViewModel
         public MainViewModel(IScrapper scrapper)
         {
             _scrapper = scrapper;
+            _scrapper.ReadBook("http://loveread.ec/read_book.php?id=69223&p=1");
         }
     }
 }
