@@ -4,9 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="LoveRead" Height="350" Width="525"
+        Title="LoveRead" Height="500" Width="800"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" MinWidth="250" MaxWidth="400" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Margin="10">
+            <TextBox IsEnabled="True" Text="{Binding BookUrl}" />
+            <Button Command="{Binding ReadBookCommand}" Content="Read"/>
+        </StackPanel>
+        <ScrollViewer x:Name="LogList" Grid.Column="1" VerticalScrollBarVisibility="Visible" Margin="10">
+            <ItemsControl ItemsSource="{Binding LogList}" />
+        </ScrollViewer>
     </Grid>
 </Window>

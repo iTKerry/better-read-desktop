@@ -1,6 +1,8 @@
 using System.Text;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Threading;
 using LoveRead.Infrastructure;
+using LoveRead.Views;
 using Microsoft.Practices.ServiceLocation;
 using ScrapySharp.Network;
 
@@ -10,12 +12,16 @@ namespace LoveRead.ViewModel
     {
         public ViewModelLocator()
         {
+            DispatcherHelper.Initialize();
+
             var browser = new ScrapingBrowser{Encoding = Encoding.GetEncoding("windows-1251")};
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<ILibraryScrapper>(() => new LibraryScrapper(browser));
+
+            SimpleIoc.Default.Register<IMessangerService, MessangerService>();
+            SimpleIoc.Default.Register<ILibraryScrapper>(() => new LibraryScrapper(browser, SimpleIoc.Default.GetInstance<IMessangerService>()));
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();

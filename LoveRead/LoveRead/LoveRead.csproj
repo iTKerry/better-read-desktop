@@ -83,10 +83,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Messanges.cs" />
+    <Compile Include="Infrastructure\MessangerService.cs" />
     <Compile Include="Model\WebBook.cs" />
     <Compile Include="Model\WebBookPage.cs" />
-    <Compile Include="Infrastructure\Scrapper.cs" />
+    <Compile Include="Infrastructure\LibraryScrapper.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="Views\MainWindow.xaml">
