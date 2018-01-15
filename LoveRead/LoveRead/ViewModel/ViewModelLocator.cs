@@ -1,6 +1,6 @@
 using System.Text;
 using GalaSoft.MvvmLight.Ioc;
-using LoveRead.Services;
+using LoveRead.Infrastructure;
 using Microsoft.Practices.ServiceLocation;
 using ScrapySharp.Network;
 
@@ -15,7 +15,7 @@ namespace LoveRead.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<IScrapper>(() => new Scrapper(browser));
+            SimpleIoc.Default.Register<ILibraryScrapper>(() => new LibraryScrapper(browser));
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();

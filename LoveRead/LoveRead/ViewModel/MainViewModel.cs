@@ -1,16 +1,16 @@
 using GalaSoft.MvvmLight;
-using LoveRead.Services;
+using LoveRead.Infrastructure;
 
 namespace LoveRead.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly IScrapper _scrapper;
+        private readonly ILibraryScrapper _libraryScrapper;
 
-        public MainViewModel(IScrapper scrapper)
+        public MainViewModel(ILibraryScrapper libraryScrapper)
         {
-            _scrapper = scrapper;
-            _scrapper.ReadBook("http://loveread.ec/read_book.php?id=69223&p=1");
+            _libraryScrapper = libraryScrapper;
+            _libraryScrapper.ReadBook("http://loveread.ec/read_book.php?id=69223&p=1");
         }
     }
 }
