@@ -1,4 +1,5 @@
-﻿using LoveRead.Model;
+﻿using System;
+using LoveRead.Model;
 using Xceed.Words.NET;
 
 namespace LoveRead.Infrastructure
@@ -7,7 +8,7 @@ namespace LoveRead.Infrastructure
     {
         public void Save(WebBook book)
         {
-            DocX doc = DocX.Create("test.docx");
+            DocX doc = DocX.Create($"{book.Name}.docx");
 
             foreach (var page in book.Pages)
             {
@@ -30,12 +31,11 @@ namespace LoveRead.Infrastructure
 
         public void SaveAs(WebBook book, string path)
         {
-            DocX doc = DocX.Create("test");
-            doc.SaveAs($"{book.Name}.docx");
+            throw new NotImplementedException();
         }
 
         private void InsertParagraph(DocX doc, string text) 
-            => doc.InsertParagraph(text);
+            => doc.InsertParagraph(text).IndentationFirstLine = 1;
 
         private void InsertHeader(DocX doc, string text) 
             => doc.InsertParagraph(text).FontSize(20).Alignment = Alignment.center;

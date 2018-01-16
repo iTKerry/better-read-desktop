@@ -28,7 +28,7 @@ namespace LoveRead.Infrastructure
         {
             Log("Reading started!");
             var book = await GetBookBaseInfo();
-            Log($"Book has ID={book.Id} with {book.PagesCount} pages");
+            Log($"Book '{book.Name}' has ID={book.Id} with {book.PagesCount} pages");
             await GetBookPages();
             Log("Done!");
             return book;
@@ -36,10 +36,14 @@ namespace LoveRead.Infrastructure
             async Task<WebBook> GetBookBaseInfo()
             {
                 var firstPage = await NavigateBrowserToPage(bookUrl);
+                var bookId = int.Parse(_idFromUrlRegex.Match(bookUrl).Groups[1].Value);
                 var webBook = new WebBook
                 {
-                    Id = int.Parse(_idFromUrlRegex.Match(bookUrl).Groups[1].Value),
+                    Id = bookId,
                     Url = bookUrl,
+                    Name = firstPage.Html.CssSelect("td.tb_read_book > h2 > a")
+                        .Where(n => n.GetAttributeValue("href").Contains($"view_global.php?id={bookId}"))
+                        .Select(a => a.GetAttributeValue("title")).First(),
                     PagesCount = firstPage.Html.CssSelect("div.navigation > a").Select(n => n.InnerHtml)
                         .Where(t => int.TryParse(t, out int _)).Select(int.Parse).Max(),
                     Pages = new List<WebBookPage>()
@@ -55,7 +59,7 @@ namespace LoveRead.Infrastructure
                     var currentPageUrl = string.Format(BookPattern, book.Id, currentPageNumber++);
                     Log($"Navigating to: {currentPageUrl}");
                     var currentPage = await NavigateBrowserToPage(currentPageUrl);
-                    book.Pages.Add(new WebBookPage { WebBookTexts = GetPageText(currentPage, currentPageNumber) });
+                    book.Pages.Add(new WebBookPage {WebBookTexts = GetPageText(currentPage, currentPageNumber)});
                 }
             }
         }
