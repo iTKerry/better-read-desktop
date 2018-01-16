@@ -20,6 +20,7 @@ namespace LoveRead.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
 
+            SimpleIoc.Default.Register<IDocService, DocService>();
             SimpleIoc.Default.Register<IMessangerService, MessangerService>();
             SimpleIoc.Default.Register<ILibraryScrapper>(() => new LibraryScrapper(browser, SimpleIoc.Default.GetInstance<IMessangerService>()));
         }

@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LoveRead.Infrastructure;
+using LoveRead.Model;
 using LoveRead.Views;
 
 namespace LoveRead.ViewModel
@@ -10,14 +11,19 @@ namespace LoveRead.ViewModel
     public class MainViewModel : ViewModelBase
     {
         private readonly ILibraryScrapper _libraryScrapper;
+        private readonly IDocService _docService;
+
         public IMainView MainView;
 
         public RelayCommand ReadBookCommand => new RelayCommand(async () 
-            => await _libraryScrapper.ReadBook(BookUrl));
+            => Book = await _libraryScrapper.ReadBook(BookUrl));
 
-        public MainViewModel(ILibraryScrapper libraryScrapper)
+        public RelayCommand GenerateDocCommand => new RelayCommand(() => _docService.Save(Book));
+
+        public MainViewModel(ILibraryScrapper libraryScrapper, IDocService docService)
         {
             _libraryScrapper = libraryScrapper;
+            _docService = docService;
 #if DEBUG
             BookUrl = "http://loveread.ec/read_book.php?id=69223&p=1";
 #endif
@@ -30,6 +36,8 @@ namespace LoveRead.ViewModel
             LogList.Add(messange.Content.Text);
             MainView.ScrollToEnd();
         }
+
+        private WebBook Book { get; set; }
 
         private string _bookUrl;
         public string BookUrl
