@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Xml.Linq;
 using LoveRead.Model;
 using Xceed.Words.NET;
 

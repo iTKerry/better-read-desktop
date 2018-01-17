@@ -40,11 +40,29 @@ namespace LoveRead.ViewModel
 
         private WebBook Book { get; set; }
 
+        private bool _isReadButtonEnabled;
+        public bool IsReadButtonEnabled
+        {
+            get => _isReadButtonEnabled;
+            set => Set(() => IsReadButtonEnabled, ref _isReadButtonEnabled, value);
+        }
+
+        private bool _isGenerateButtonEnabled;
+        public bool IsGenerateButtonEnabled
+        {
+            get => _isReadButtonEnabled;
+            set => Set(() => IsGenerateButtonEnabled, ref _isGenerateButtonEnabled, value);
+        }
+
         private string _bookUrl;
         public string BookUrl
         {
             get => _bookUrl;
-            set => Set(() => BookUrl, ref _bookUrl, value);
+            set
+            {
+                IsReadButtonEnabled = !string.IsNullOrEmpty(value);
+                Set(() => BookUrl, ref _bookUrl, value);
+            }
         }
 
         private ObservableCollection<string> _logList;
