@@ -9,14 +9,16 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" MinWidth="250" MaxWidth="400" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" MinWidth="250" MaxWidth="450" />
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0" Margin="10">
             <TextBox IsEnabled="True" Text="{Binding BookUrl}" />
             <Button Command="{Binding ReadBookCommand}" Content="Read"/>
             <Button Command="{Binding GenerateDocCommand}" Content="Create docx"/>
         </StackPanel>
-        <ScrollViewer x:Name="LogList" Grid.Column="1" VerticalScrollBarVisibility="Visible" Margin="10">
+        <GridSplitter Grid.Column="1" Width="5" />
+        <ScrollViewer x:Name="LogList" Grid.Column="2" VerticalScrollBarVisibility="Visible" Margin="10">
             <ItemsControl ItemsSource="{Binding LogList}" />
         </ScrollViewer>
     </Grid>

@@ -2,7 +2,6 @@ using System.Text;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
 using LoveRead.Infrastructure;
-using LoveRead.Views;
 using Microsoft.Practices.ServiceLocation;
 using ScrapySharp.Network;
 

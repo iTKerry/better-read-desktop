@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Xml.Linq;
 using LoveRead.Model;
 using Xceed.Words.NET;
 
@@ -9,7 +11,7 @@ namespace LoveRead.Infrastructure
         public void Save(WebBook book)
         {
             DocX doc = DocX.Create($"{book.Name}.docx");
-
+            
             foreach (var page in book.Pages)
             {
                 foreach (var data in page.WebBookTexts)
@@ -34,11 +36,25 @@ namespace LoveRead.Infrastructure
             throw new NotImplementedException();
         }
 
-        private void InsertParagraph(DocX doc, string text) 
-            => doc.InsertParagraph(text).IndentationFirstLine = 1;
+        private void InsertParagraph(DocX doc, string text)
+        {
+            var paragraph = doc.InsertParagraph();
+            paragraph.Append(text).IndentationFirstLine = 1;
+            paragraph.SpacingAfter(5);
+            if (Equals(text.First(), '—'))
+                paragraph.Italic();
+        }
 
-        private void InsertHeader(DocX doc, string text) 
-            => doc.InsertParagraph(text).FontSize(20).Alignment = Alignment.center;
+        private void InsertHeader(DocX doc, string text)
+        {
+            var header = doc.InsertParagraph();
+            header.Append(text);
+            header.FontSize(20);
+            header.Alignment = Alignment.center;
+            header.Bold();
+            header.SpacingBefore(8);
+            header.SpacingAfter(13);
+        }
     }
 
     public interface IDocService

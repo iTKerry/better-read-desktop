@@ -10,7 +10,7 @@ namespace LoveRead.Views
             ((MainViewModel) DataContext).MainView = this;
         }
 
-        public void ScrollToEnd()
+        public void ScrollLogToEnd()
         {
             this.LogList.ScrollToEnd();
         }
@@ -18,6 +18,6 @@ namespace LoveRead.Views
 
     public interface IMainView
     {
-        void ScrollToEnd();
+        void ScrollLogToEnd();
     }
 }

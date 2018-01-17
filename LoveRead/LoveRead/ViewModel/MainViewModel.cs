@@ -18,7 +18,8 @@ namespace LoveRead.ViewModel
         public RelayCommand ReadBookCommand => new RelayCommand(async () 
             => Book = await _libraryScrapper.ReadBook(BookUrl));
 
-        public RelayCommand GenerateDocCommand => new RelayCommand(() => _docService.Save(Book));
+        public RelayCommand GenerateDocCommand => new RelayCommand(() 
+            => _docService.Save(Book));
 
         public MainViewModel(ILibraryScrapper libraryScrapper, IDocService docService)
         {
@@ -34,7 +35,7 @@ namespace LoveRead.ViewModel
         private void ProcessLogMessage(NotificationMessage<LogMessange> messange)
         {
             LogList.Add(messange.Content.Text);
-            MainView.ScrollToEnd();
+            MainView.ScrollLogToEnd();
         }
 
         private WebBook Book { get; set; }
@@ -50,7 +51,7 @@ namespace LoveRead.ViewModel
         public ObservableCollection<string> LogList
         {
             get => _logList;
-            set =>Set(() => LogList, ref _logList, value);
+            set => Set(() => LogList, ref _logList, value);
         }
     }
 }
