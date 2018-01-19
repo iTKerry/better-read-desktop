@@ -15,8 +15,11 @@ namespace LoveRead.ViewModel
 
         public IMainView MainView;
 
-        public RelayCommand ReadBookCommand => new RelayCommand(async () 
-            => Book = await _libraryScrapper.ReadBook(BookUrl));
+        public RelayCommand ReadBookCommand => new RelayCommand(async () =>
+        {
+            Book = await _libraryScrapper.ReadBook(BookUrl);
+            BookLogo = Book.ImageUrl;
+        });
 
         public RelayCommand GenerateDocCommand => new RelayCommand(() 
             => _docService.Save(Book));
@@ -25,6 +28,7 @@ namespace LoveRead.ViewModel
         {
             _libraryScrapper = libraryScrapper;
             _docService = docService;
+            BookLogo = string.Empty;
 #if DEBUG
             BookUrl = "http://loveread.ec/read_book.php?id=69223&p=1";
 #endif
@@ -63,6 +67,13 @@ namespace LoveRead.ViewModel
                 IsReadButtonEnabled = !string.IsNullOrEmpty(value);
                 Set(() => BookUrl, ref _bookUrl, value);
             }
+        }
+
+        private string _bookLogo;
+        public string BookLogo
+        {
+            get => _bookLogo;
+            set => Set(() => BookLogo, ref _bookLogo, value);
         }
 
         private ObservableCollection<string> _logList;

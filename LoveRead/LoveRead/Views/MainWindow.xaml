@@ -16,6 +16,7 @@
             <TextBox IsEnabled="True" Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}" />
             <Button Command="{Binding ReadBookCommand}" IsEnabled="{Binding IsReadButtonEnabled}" Content="Read"/>
             <Button Command="{Binding GenerateDocCommand}" Content="Create docx"/>
+            <Image Source="{Binding BookLogo}"></Image>
         </StackPanel>
         <GridSplitter Grid.Column="1" Width="5" />
         <ScrollViewer x:Name="LogList" Grid.Column="2" VerticalScrollBarVisibility="Visible" Margin="10">
