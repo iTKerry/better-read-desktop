@@ -20,10 +20,15 @@ namespace LoveRead.Infrastructure.Services
 
         public void Save(WebBook book)
         {
+            var fileName = string.Format(FileTemplate, "Downloads", book.Name);
+
             if (!Directory.Exists(DownloadsPath))
                 Directory.CreateDirectory(DownloadsPath);
 
-            DocX doc = DocX.Create(string.Format(FileTemplate, "Downloads", book.Name));
+            if(new DirectoryInfo(DownloadsPath).GetFiles().Any(f => f.Name.Contains(book.Name)))
+                return;
+
+            DocX doc = DocX.Create(fileName);
             InsertImage(doc, _download.DownloadFile(book.ImageUrl, book.Name));
 
             foreach (var page in book.Pages)

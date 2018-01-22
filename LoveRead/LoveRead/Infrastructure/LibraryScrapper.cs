@@ -37,8 +37,11 @@ namespace LoveRead.Infrastructure
 
             async Task<WebBook> GetBookBaseInfo()
             {
-                var firstPage = await NavigateBrowserToPage(bookUrl);
                 var bookId = int.Parse(_idFromUrlRegex.Match(bookUrl).Groups[1].Value);
+                var firstPage = bookUrl.Contains("view_global.php?")
+                    ? await NavigateBrowserToPage(string.Format(BookPattern, bookId, 1))
+                    : await NavigateBrowserToPage(bookUrl);
+
                 var webBook = new WebBook
                 {
                     Id = bookId,
