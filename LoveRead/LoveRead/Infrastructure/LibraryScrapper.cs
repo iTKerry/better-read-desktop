@@ -46,6 +46,7 @@ namespace LoveRead.Infrastructure
                     Name = firstPage.Html.CssSelect("td.tb_read_book > h2 > a")
                         .Where(n => n.GetAttributeValue("href").Contains($"view_global.php?id={bookId}"))
                         .Select(a => a.GetAttributeValue("title")).First(),
+                    Author = firstPage.Html.CssSelect("a").First(a => a.GetAttributeValue("href").Contains("author=")).GetAttributeValue("title"),
                     ImageUrl = string.Format(ImagePattern, bookId),
                     PagesCount = firstPage.Html.CssSelect("div.navigation > a").Select(n => n.InnerHtml)
                         .Where(t => int.TryParse(t, out int _)).Select(int.Parse).Max(),

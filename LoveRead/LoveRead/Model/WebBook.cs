@@ -6,6 +6,7 @@ namespace LoveRead.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Author { get; set; }
         public int PagesCount { get; set; }
         public string Url { get; set; }
         public string ImageUrl { get; set; }

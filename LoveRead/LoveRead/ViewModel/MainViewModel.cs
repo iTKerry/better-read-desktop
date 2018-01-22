@@ -20,6 +20,8 @@ namespace LoveRead.ViewModel
             Book = await _libraryScrapper.ReadBook(BookUrl);
             BookLogo = Book.ImageUrl;
             BookName = Book.Name;
+            BookAuthor = Book.Author;
+            BookPagesCount = Book.PagesCount;
         });
 
         public RelayCommand GenerateDocCommand => new RelayCommand(() 
@@ -40,7 +42,10 @@ namespace LoveRead.ViewModel
         {
             LogList = new ObservableCollection<string> {"Application started!\n...\n"};
             BookLogo = string.Empty;
+            BookPagesCount = 0;
+            IsBookUrlEnabled = true;
             BookName = "Search some book!";
+            BookAuthor = "No book, no author";
 #if DEBUG
             BookUrl = "http://loveread.ec/read_book.php?id=14458&p=1";
 #endif
@@ -59,10 +64,14 @@ namespace LoveRead.ViewModel
             {
                 case 1:
                     IsReading = true;
+                    IsReadButtonEnabled = false;
+                    IsBookUrlEnabled = false;
                     IsReadingComplete = false;
                     break;
                 case 100:
                     IsReading = false;
+                    IsReadButtonEnabled = true;
+                    IsBookUrlEnabled = true;
                     IsReadingComplete = true;
                     break;
             }

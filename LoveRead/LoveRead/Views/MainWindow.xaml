@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="LoveRead" Height="700" Width="1000"
+        Icon="../Assets/favicon.ico"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <materialDesign:DrawerHost >
         <materialDesign:DrawerHost.BottomDrawerContent>
@@ -14,23 +15,64 @@
             </ScrollViewer>
         </materialDesign:DrawerHost.BottomDrawerContent>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" MinWidth="400" MaxWidth="500" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Grid.Column="0" Margin="10">
-                <TextBox IsEnabled="True" Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}" Margin="10"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <materialDesign:ColorZone Mode="PrimaryMid" Padding="16">
+                <DockPanel>
+                    <Button Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" 
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            CommandParameter="{x:Static Dock.Bottom}" VerticalAlignment="Center"
+                            DockPanel.Dock="Right" >
+                        <materialDesign:PackIcon Kind="Console" />
+                    </Button>
+                    <StackPanel Orientation="Horizontal"
+                            materialDesign:RippleAssist.IsCentered="True">
+                        <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1"
+                                   Margin="16 0 0 0"
+                                   materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" IsEnabled="False">
+                                    <materialDesign:PackIcon Kind="Magnify" Opacity="1" />
+                                </Button>
+                                <TextBox Grid.Column="1" Margin="8 0 0 0" materialDesign:HintAssist.Hint="Book Address" 
+                                         materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                                         MinWidth="300" VerticalAlignment="Center" 
+                                         IsEnabled="{Binding IsBookUrlEnabled}"
+                                         Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                        </materialDesign:ColorZone>
+                    </StackPanel>
+                </DockPanel>
+            </materialDesign:ColorZone>
+            <Button Margin="350,-35,0,0" Grid.Row="1"
+                    HorizontalAlignment="Left"
                     Command="{Binding ReadBookCommand}"
                     IsEnabled="{Binding IsReadButtonEnabled}" 
                     materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
-                    materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}">
+                    materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}"
+                    materialDesign:ButtonProgressAssist.IndicatorForeground="#e65100"
+                    materialDesign:ButtonProgressAssist.IndicatorBackground="#ffcc80">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionAccentButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsReadButtonEnabled}" Value="False">
+                                <Setter Property="Opacity" Value="1" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
                     <materialDesign:PackIcon Height="24" Width="24">
                         <materialDesign:PackIcon.Style>
                             <Style TargetType="materialDesign:PackIcon">
-                                <Setter Property="Kind" Value="Sync" />
+                                <Setter Property="Kind" Value="BookOpenPageVariant" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsReadingComplete}" Value="True">
                                         <Setter Property="Kind" Value="Check" />
@@ -46,19 +88,48 @@
                             </Style>
                         </materialDesign:PackIcon.Style>
                     </materialDesign:PackIcon>
-                </Button>
-                <Button Command="{Binding GenerateDocCommand}" IsEnabled="{Binding IsGenerateButtonEnabled}"
-                    Content="Create docx"/>
-                <Button Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" Style="{StaticResource MaterialDesignFlatAccentButton}"
-                        CommandParameter="{x:Static Dock.Bottom}" Margin="4">
-                    <materialDesign:PackIcon Kind="Console" />
-                </Button>
-            </StackPanel>
-            <GridSplitter Grid.Column="1" Width="5" />
-            <StackPanel Grid.Column="2">
-                <TextBlock Text="{Binding BookName}"></TextBlock>
-                <Image Source="{Binding BookLogo}"></Image>
-            </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding GenerateDocCommand}" 
+                    IsEnabled="{Binding IsGenerateButtonEnabled}"
+                    Margin="410,-50,0,0" Grid.Row="1"
+                    HorizontalAlignment="Left">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsGenerateButtonEnabled}" Value="False">
+                                <Setter Property="Opacity" Value="0.9" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="Download" Height="25" Width="25" />
+                </Button.Content>
+            </Button>
+            <Grid Grid.Row="2" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="350" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="16,0,0,0">
+                    <StackPanel Margin="0,10,0,0">
+                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Author:</TextBlock>
+                        <TextBlock Text="{Binding BookAuthor}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="16,0,0,0" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0">
+                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Name: </TextBlock>
+                        <TextBlock Text="{Binding BookName}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="16,0,0,0" />
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0">
+                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Pages:</TextBlock>
+                        <TextBlock Text="{Binding BookPagesCount}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="16,0,0,0" />
+                    </StackPanel>
+                </StackPanel>
+                <ScrollViewer VerticalAlignment="Top" Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                    <Image MaxWidth="400" Source="{Binding BookLogo}"></Image>
+                </ScrollViewer>
+            </Grid>
         </Grid>
     </materialDesign:DrawerHost>
 </Window>

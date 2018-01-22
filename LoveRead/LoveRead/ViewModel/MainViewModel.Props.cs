@@ -24,6 +24,13 @@ namespace LoveRead.ViewModel
             set => Set(() => BookName, ref _bookName, value);
         }
 
+        private string _bookAuthor;
+        public string BookAuthor
+        {
+            get => _bookAuthor;
+            set => Set(() => BookAuthor, ref _bookAuthor, value);
+        }
+
         private string _bookUrl;
         public string BookUrl
         {
@@ -35,11 +42,25 @@ namespace LoveRead.ViewModel
             }
         }
 
+        private bool _isBookUrlEnabled;
+        public bool IsBookUrlEnabled
+        {
+            get => _isBookUrlEnabled;
+            set => Set(() => IsBookUrlEnabled, ref _isBookUrlEnabled, value);
+        }
+
         private string _bookLogo;
         public string BookLogo
         {
             get => _bookLogo;
             set => Set(() => BookLogo, ref _bookLogo, value);
+        }
+
+        private int _bookPagesCount;
+        public int BookPagesCount
+        {
+            get => _bookPagesCount;
+            set => Set(() => BookPagesCount, ref _bookPagesCount, value);
         }
 
         private bool _isReadButtonEnabled;
