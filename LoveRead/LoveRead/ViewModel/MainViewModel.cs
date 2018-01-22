@@ -4,12 +4,11 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LoveRead.Infrastructure;
 using LoveRead.Infrastructure.Services;
-using LoveRead.Model;
 using LoveRead.Views;
 
 namespace LoveRead.ViewModel
 {
-    public class MainViewModel : ViewModelBase
+    public partial class MainViewModel : ViewModelBase
     {
         private readonly ILibraryScrapper _libraryScrapper;
         private readonly IDocService _docService;
@@ -20,6 +19,7 @@ namespace LoveRead.ViewModel
         {
             Book = await _libraryScrapper.ReadBook(BookUrl);
             BookLogo = Book.ImageUrl;
+            BookName = Book.Name;
         });
 
         public RelayCommand GenerateDocCommand => new RelayCommand(() 
@@ -29,12 +29,21 @@ namespace LoveRead.ViewModel
         {
             _libraryScrapper = libraryScrapper;
             _docService = docService;
-            BookLogo = string.Empty;
-#if DEBUG
-            BookUrl = "http://loveread.ec/read_book.php?id=69223&p=1";
-#endif
-            LogList = new ObservableCollection<string>();
+
             Messenger.Default.Register<NotificationMessage<LogMessange>>(this, ProcessLogMessage);
+            Messenger.Default.Register<NotificationMessage<ProgressMessange>>(this, ProcessProgressMessage);
+
+            InitData();
+        }
+
+        private void InitData()
+        {
+            LogList = new ObservableCollection<string> {"Application started!\n...\n"};
+            BookLogo = string.Empty;
+            BookName = "Search some book!";
+#if DEBUG
+            BookUrl = "http://loveread.ec/read_book.php?id=14458&p=1";
+#endif
         }
 
         private void ProcessLogMessage(NotificationMessage<LogMessange> messange)
@@ -43,45 +52,20 @@ namespace LoveRead.ViewModel
             MainView.ScrollLogToEnd();
         }
 
-        private WebBook Book { get; set; }
-
-        private bool _isReadButtonEnabled;
-        public bool IsReadButtonEnabled
+        private void ProcessProgressMessage(NotificationMessage<ProgressMessange> message)
         {
-            get => _isReadButtonEnabled;
-            set => Set(() => IsReadButtonEnabled, ref _isReadButtonEnabled, value);
-        }
-
-        private bool _isGenerateButtonEnabled;
-        public bool IsGenerateButtonEnabled
-        {
-            get => _isReadButtonEnabled;
-            set => Set(() => IsGenerateButtonEnabled, ref _isGenerateButtonEnabled, value);
-        }
-
-        private string _bookUrl;
-        public string BookUrl
-        {
-            get => _bookUrl;
-            set
+            ReadingProgress = (int)((double)message.Content.Current / (double)message.Content.Total * 100);
+            switch (ReadingProgress)
             {
-                IsReadButtonEnabled = !string.IsNullOrEmpty(value);
-                Set(() => BookUrl, ref _bookUrl, value);
+                case 1:
+                    IsReading = true;
+                    IsReadingComplete = false;
+                    break;
+                case 100:
+                    IsReading = false;
+                    IsReadingComplete = true;
+                    break;
             }
-        }
-
-        private string _bookLogo;
-        public string BookLogo
-        {
-            get => _bookLogo;
-            set => Set(() => BookLogo, ref _bookLogo, value);
-        }
-
-        private ObservableCollection<string> _logList;
-        public ObservableCollection<string> LogList
-        {
-            get => _logList;
-            set => Set(() => LogList, ref _logList, value);
         }
     }
 }

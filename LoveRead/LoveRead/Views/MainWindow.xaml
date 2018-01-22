@@ -3,24 +3,62 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="LoveRead" Height="500" Width="800"
+        Title="LoveRead" Height="700" Width="1000"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" MinWidth="250" MaxWidth="450" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Margin="10">
-            <TextBox IsEnabled="True" Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Command="{Binding ReadBookCommand}" IsEnabled="{Binding IsReadButtonEnabled}" Content="Read"/>
-            <Button Command="{Binding GenerateDocCommand}" Content="Create docx"/>
-            <Image Source="{Binding BookLogo}"></Image>
-        </StackPanel>
-        <GridSplitter Grid.Column="1" Width="5" />
-        <ScrollViewer x:Name="LogList" Grid.Column="2" VerticalScrollBarVisibility="Visible" Margin="10">
-            <ItemsControl ItemsSource="{Binding LogList}" />
-        </ScrollViewer>
-    </Grid>
+    <materialDesign:DrawerHost >
+        <materialDesign:DrawerHost.BottomDrawerContent>
+            <ScrollViewer x:Name="LogList" VerticalScrollBarVisibility="Auto" Margin="5" MinHeight="250" MaxHeight="300">
+                <ItemsControl ItemsSource="{Binding LogList}" />
+            </ScrollViewer>
+        </materialDesign:DrawerHost.BottomDrawerContent>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" MinWidth="400" MaxWidth="500" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="10">
+                <TextBox IsEnabled="True" Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Style="{StaticResource MaterialDesignFloatingActionLightButton}" Margin="10"
+                    Command="{Binding ReadBookCommand}"
+                    IsEnabled="{Binding IsReadButtonEnabled}" 
+                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
+                    materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}">
+                    <materialDesign:PackIcon Height="24" Width="24">
+                        <materialDesign:PackIcon.Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="Kind" Value="Sync" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsReadingComplete}" Value="True">
+                                        <Setter Property="Kind" Value="Check" />
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PackIcon.Style>
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button Command="{Binding GenerateDocCommand}" IsEnabled="{Binding IsGenerateButtonEnabled}"
+                    Content="Create docx"/>
+                <Button Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" Style="{StaticResource MaterialDesignFlatAccentButton}"
+                        CommandParameter="{x:Static Dock.Bottom}" Margin="4">
+                    <materialDesign:PackIcon Kind="Console" />
+                </Button>
+            </StackPanel>
+            <GridSplitter Grid.Column="1" Width="5" />
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="{Binding BookName}"></TextBlock>
+                <Image Source="{Binding BookLogo}"></Image>
+            </StackPanel>
+        </Grid>
+    </materialDesign:DrawerHost>
 </Window>

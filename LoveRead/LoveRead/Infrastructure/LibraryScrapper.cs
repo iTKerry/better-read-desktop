@@ -64,6 +64,7 @@ namespace LoveRead.Infrastructure
                     var currentPage = await NavigateBrowserToPage(currentPageUrl);
                     book.Pages.Add(new WebBookPage {WebBookTexts = GetPageText(currentPage)});
 
+                    Progress(currentPageNumber, book.PagesCount);
                     currentPageNumber++;
                 }
             }
@@ -87,7 +88,15 @@ namespace LoveRead.Infrastructure
             => await _scrapingBrowser.NavigateToPageAsync(new Uri(pageUrl));
 
         private void Log(string messange) 
-            => _messanger.Log(new LogMessange {Text = messange});
+            => _messanger.NotifyLog(new LogMessange {Text = messange});
+
+        private void Progress(int current, int total)
+            => _messanger.NotifyProgress(new ProgressMessange
+            {
+                Current = current,
+                Total = total,
+                ProgressType = ProgressType.Reading
+            });
     }
 
     public interface ILibraryScrapper

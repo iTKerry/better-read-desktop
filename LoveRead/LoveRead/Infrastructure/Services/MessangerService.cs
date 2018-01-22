@@ -7,14 +7,31 @@ namespace LoveRead.Infrastructure.Services
         public string Text { get; set; }
     }
 
+    public class ProgressMessange
+    {
+        public int Current { get; set; }
+        public int Total { get; set; }
+        public ProgressType ProgressType { get; set; }
+    }
+
+    public enum ProgressType
+    {
+        Reading,
+        Writing
+    }
+
     public class MessangerService : IMessangerService
     {
-        public void Log(LogMessange content) =>
-            Messenger.Default.Send(new NotificationMessage<LogMessange>(this, content, "Sending Log messange"));
+        public void NotifyLog(LogMessange content) =>
+            Messenger.Default.Send(new NotificationMessage<LogMessange>(this, content, "Sending NotifyLog messange"));
+
+        public void NotifyProgress(ProgressMessange content) =>
+            Messenger.Default.Send(new NotificationMessage<ProgressMessange>(this, content, "Sending Progress messange"));
     }
 
     public interface IMessangerService
     {
-        void Log(LogMessange content);
+        void NotifyLog(LogMessange content);
+        void NotifyProgress(ProgressMessange content);
     }
 }
