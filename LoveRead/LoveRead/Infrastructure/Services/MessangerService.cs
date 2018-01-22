@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Messaging;
 
-namespace LoveRead.Infrastructure
+namespace LoveRead.Infrastructure.Services
 {
     public class LogMessange
     {

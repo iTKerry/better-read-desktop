@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LoveRead.Infrastructure;
+using LoveRead.Infrastructure.Services;
 using LoveRead.Model;
 using LoveRead.Views;
 

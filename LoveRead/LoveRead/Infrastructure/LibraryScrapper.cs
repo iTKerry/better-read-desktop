@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LoveRead.Infrastructure.Services;
 using LoveRead.Model;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
@@ -61,16 +62,15 @@ namespace LoveRead.Infrastructure
                     var currentPageUrl = string.Format(BookPattern, book.Id, currentPageNumber);
                     Log($"Navigating to: {currentPageUrl}");
                     var currentPage = await NavigateBrowserToPage(currentPageUrl);
-                    book.Pages.Add(new WebBookPage {WebBookTexts = GetPageText(currentPage, currentPageNumber)});
+                    book.Pages.Add(new WebBookPage {WebBookTexts = GetPageText(currentPage)});
 
                     currentPageNumber++;
                 }
             }
         }
 
-        private IEnumerable<IWebBookText> GetPageText(WebPage webPage, int pageNumber)
+        private IEnumerable<IWebBookText> GetPageText(WebPage webPage)
         {
-            Log($"Reading page #{pageNumber} ...");
             var nodes = webPage.Html.CssSelect("div.MsoNormal").SingleOrDefault()?.ChildNodes.Nodes();
             if (nodes == null) yield break;
 

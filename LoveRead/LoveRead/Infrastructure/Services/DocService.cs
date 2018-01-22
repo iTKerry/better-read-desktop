@@ -1,16 +1,31 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using LoveRead.Model;
 using Xceed.Words.NET;
 
-namespace LoveRead.Infrastructure
+namespace LoveRead.Infrastructure.Services
 {
     public class DocService : IDocService
     {
+        private readonly IDownloadService _download;
+
+        private static readonly string DownloadsPath = Directory.GetCurrentDirectory() + "\\Downloads";
+        private const string FileTemplate = "{0}\\{1}.docx";
+
+        public DocService(IDownloadService download)
+        {
+            _download = download;
+        }
+
         public void Save(WebBook book)
         {
-            DocX doc = DocX.Create($"{book.Name}.docx");
-            
+            if (!Directory.Exists(DownloadsPath))
+                Directory.CreateDirectory(DownloadsPath);
+
+            DocX doc = DocX.Create(string.Format(FileTemplate, "Downloads", book.Name));
+            InsertImage(doc, _download.DownloadFile(book.ImageUrl, book.Name));
+
             foreach (var page in book.Pages)
             {
                 foreach (var data in page.WebBookTexts)
@@ -53,6 +68,16 @@ namespace LoveRead.Infrastructure
             header.Bold();
             header.SpacingBefore(8);
             header.SpacingAfter(13);
+        }
+
+        private void InsertImage(DocX doc, string imgPath)
+        {
+            var image = doc.AddImage(imgPath);
+            var picture = image.CreatePicture();
+            var p = doc.InsertParagraph();
+            p.Alignment = Alignment.center;
+            p.AppendPicture(picture);
+            p.SpacingAfter(30);
         }
     }
 

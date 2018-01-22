@@ -86,8 +86,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Infrastructure\DocService.cs" />
-    <Compile Include="Infrastructure\MessangerService.cs" />
+    <Compile Include="Infrastructure\Services\DocService.cs" />
+    <Compile Include="Infrastructure\Services\DownloadService.cs" />
+    <Compile Include="Infrastructure\Services\MessangerService.cs" />
     <Compile Include="Model\WebBook.cs" />
     <Compile Include="Model\WebBookPage.cs" />
     <Compile Include="Infrastructure\LibraryScrapper.cs" />
