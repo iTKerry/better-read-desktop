@@ -10,7 +10,7 @@
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <materialDesign:DrawerHost >
         <materialDesign:DrawerHost.BottomDrawerContent>
-            <ScrollViewer x:Name="LogList" VerticalScrollBarVisibility="Auto" Margin="5" MinHeight="250" MaxHeight="300">
+            <ScrollViewer x:Name="LogList" VerticalScrollBarVisibility="Auto" Margin="16,5,5,5" MinHeight="250" MaxHeight="300">
                 <ItemsControl ItemsSource="{Binding LogList}" />
             </ScrollViewer>
         </materialDesign:DrawerHost.BottomDrawerContent>
@@ -115,19 +115,19 @@
                 <StackPanel Margin="16,0,0,0">
                     <StackPanel Margin="0,10,0,0">
                         <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Author:</TextBlock>
-                        <TextBlock Text="{Binding BookAuthor}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="16,0,0,0" />
+                        <TextBlock Text="{Binding BookAuthor}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0">
                         <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Name: </TextBlock>
-                        <TextBlock Text="{Binding BookName}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="16,0,0,0" />
+                        <TextBlock Text="{Binding BookName}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0">
-                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Pages:</TextBlock>
-                        <TextBlock Text="{Binding BookPagesCount}" Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="16,0,0,0" />
+                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Web Pages:</TextBlock>
+                        <TextBlock Text="{Binding BookPagesCount}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
                     </StackPanel>
                 </StackPanel>
-                <ScrollViewer VerticalAlignment="Top" Grid.Column="1" VerticalScrollBarVisibility="Auto">
-                    <Image MaxWidth="400" Source="{Binding BookLogo}"></Image>
+                <ScrollViewer HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" VerticalScrollBarVisibility="Auto">
+                    <Image MaxWidth="350" Source="{Binding BookLogo}"></Image>
                 </ScrollViewer>
             </Grid>
         </Grid>

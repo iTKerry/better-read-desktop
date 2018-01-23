@@ -29,8 +29,10 @@ namespace LoveRead.Infrastructure.Services
                 return;
 
             DocX doc = DocX.Create(fileName);
+            doc.DifferentFirstPage = true;
+            doc.AddFooters();
+            
             InsertImage(doc, _download.DownloadFile(book.ImageUrl, book.Name));
-
             foreach (var page in book.Pages)
             {
                 foreach (var data in page.WebBookTexts)
@@ -46,6 +48,13 @@ namespace LoveRead.Infrastructure.Services
                     }
                 }
             }
+
+            var even = doc.Footers.Even.InsertParagraph("Page №");
+            even.Alignment = Alignment.center;
+            even.AppendPageNumber(PageNumberFormat.normal);
+            var odd = doc.Footers.Odd.InsertParagraph("Page №");
+            odd.Alignment = Alignment.center;
+            odd.AppendPageNumber(PageNumberFormat.normal);
 
             doc.Save();
         }
@@ -82,7 +91,8 @@ namespace LoveRead.Infrastructure.Services
             var p = doc.InsertParagraph();
             p.Alignment = Alignment.center;
             p.AppendPicture(picture);
-            p.SpacingAfter(30);
+            p.SpacingAfter(30)
+                .InsertPageBreakAfterSelf();
         }
     }
 
