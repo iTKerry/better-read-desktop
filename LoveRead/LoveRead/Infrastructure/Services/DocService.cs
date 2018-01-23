@@ -22,7 +22,7 @@ namespace LoveRead.Infrastructure.Services
 
         public void SaveAs(WebBook book, string path)
         {
-            var fileName = string.Format(FileTemplate, "Downloads", book.Name);
+            var fileName = string.Format(FileTemplate, $"{path}\\", book.Name);
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);

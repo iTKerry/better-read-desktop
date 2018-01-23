@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="LoveRead" Height="700" Width="1000"
+        Title="LoveRead" 
+        Height="700" MinHeight="600"
+        Width="1000" MinWidth="950"
         Icon="../Assets/favicon.ico"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <materialDesign:DrawerHost >
