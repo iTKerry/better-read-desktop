@@ -20,7 +20,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <materialDesign:ColorZone Mode="PrimaryMid" Padding="16">
+            <materialDesign:ColorZone Mode="PrimaryDark" Padding="16">
                 <DockPanel>
                     <Button Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" 
                             Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
@@ -112,19 +112,25 @@
                     <ColumnDefinition Width="350" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Margin="16,0,0,0">
-                    <StackPanel Margin="0,10,0,0">
-                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Author:</TextBlock>
-                        <TextBlock Text="{Binding BookAuthor}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
-                    </StackPanel>
-                    <StackPanel Margin="0,10,0,0">
-                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Name: </TextBlock>
-                        <TextBlock Text="{Binding BookName}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
-                    </StackPanel>
-                    <StackPanel Margin="0,10,0,0">
-                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Web Pages:</TextBlock>
-                        <TextBlock Text="{Binding BookPagesCount}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
-                    </StackPanel>
+                <StackPanel Margin="20,0,10,0" HorizontalAlignment="Stretch">
+                    <materialDesign:Card Padding="15" Margin="0,10,10,0">
+                        <StackPanel >
+                            <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Author:</TextBlock>
+                            <TextBlock Text="{Binding BookAuthor}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Padding="15" Margin="0,10,10,0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Name:</TextBlock>
+                            <TextBlock Text="{Binding BookName}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Padding="15" Margin="0,10,10,0">
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Web Pages:</TextBlock>
+                            <TextBlock Text="{Binding BookPagesCount}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
+                        </StackPanel>
+                    </materialDesign:Card>
                 </StackPanel>
                 <ScrollViewer HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" VerticalScrollBarVisibility="Auto">
                     <Image MaxWidth="350" Source="{Binding BookLogo}"></Image>

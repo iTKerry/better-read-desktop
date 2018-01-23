@@ -7,7 +7,8 @@
     d1P1:Ignorable="d" 
     xmlns:d1P1="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:LoveRead.ViewModel"
-    xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf">
+    xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+    xmlns:behaviour="clr-namespace:LoveRead.Views.Behaviour">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -29,6 +30,10 @@
             <converters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
             
             <viewModel:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+
+            <Style TargetType="TextBox">
+                <Setter Property="behaviour:TextBoxBehavior.TripleClickSelectAll" Value="True" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
