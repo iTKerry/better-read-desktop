@@ -1,10 +1,34 @@
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using LoveRead.Model;
+using LoveRead.Views;
+using MaterialDesignColors;
+using MaterialDesignThemes.Wpf;
 
 namespace LoveRead.ViewModel
 {
     public partial class MainViewModel
     {
+        public IMainView MainView;
+
+        public IEnumerable<Swatch> Swatches { get; }
+
+        private static void ApplyBase(bool isDark)
+            => new PaletteHelper().SetLightDark(isDark);
+
+        private static void ApplyPrimary(Swatch swatch)
+            => new PaletteHelper().ReplacePrimaryColor(swatch);
+
+        private static void ApplyAccent(Swatch swatch)
+            => new PaletteHelper().ReplaceAccentColor(swatch);
+
+        private string _saveAsPath;
+        public string SaveAsPath
+        {
+            get => _saveAsPath;
+            set => Set(() => SaveAsPath, ref _saveAsPath, value);
+        }
+
         private WebBook _book;
         private WebBook Book
         {

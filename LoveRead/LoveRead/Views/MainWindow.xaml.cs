@@ -1,19 +1,28 @@
-﻿using LoveRead.ViewModel;
+﻿using System.ComponentModel;
+using LoveRead.Properties;
+using LoveRead.ViewModel;
 
 namespace LoveRead.Views
 {
     public partial class MainWindow : IMainView
     {
+        private MainViewModel MainViewModel => (MainViewModel) DataContext;
+
         public MainWindow()
         {
             InitializeComponent();
-            ((MainViewModel) DataContext).MainView = this;
+            MainViewModel.MainView = this;
         }
 
-        public void ScrollLogToEnd()
+        protected override void OnClosing(CancelEventArgs e)
         {
-            this.LogList.ScrollToEnd();
+            base.OnClosing(e);
+
+            Settings.Default.DownloadPath = MainViewModel.SaveAsPath;
+            Settings.Default.Save();
         }
+
+        public void ScrollLogToEnd() => LogList.ScrollToEnd();
     }
 
     public interface IMainView

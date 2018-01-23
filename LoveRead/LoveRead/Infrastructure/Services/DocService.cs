@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using LoveRead.Model;
 using Xceed.Words.NET;
@@ -10,7 +9,7 @@ namespace LoveRead.Infrastructure.Services
     {
         private readonly IDownloadService _download;
 
-        private static readonly string DownloadsPath = Directory.GetCurrentDirectory() + "\\Downloads";
+        private static readonly string DefaultDownloadPath = Directory.GetCurrentDirectory() + "\\Downloads";
         private const string FileTemplate = "{0}\\{1}.docx";
 
         public DocService(IDownloadService download)
@@ -19,19 +18,22 @@ namespace LoveRead.Infrastructure.Services
         }
 
         public void Save(WebBook book)
+            => SaveAs(book, DefaultDownloadPath);
+
+        public void SaveAs(WebBook book, string path)
         {
             var fileName = string.Format(FileTemplate, "Downloads", book.Name);
 
-            if (!Directory.Exists(DownloadsPath))
-                Directory.CreateDirectory(DownloadsPath);
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
-            if(new DirectoryInfo(DownloadsPath).GetFiles().Any(f => f.Name.Contains(book.Name)))
+            if (new DirectoryInfo(path).GetFiles().Any(f => f.Name.Contains(book.Name)))
                 return;
 
             DocX doc = DocX.Create(fileName);
             doc.DifferentFirstPage = true;
             doc.AddFooters();
-            
+
             InsertImage(doc, _download.DownloadFile(book.ImageUrl, book.Name));
             foreach (var page in book.Pages)
             {
@@ -59,16 +61,12 @@ namespace LoveRead.Infrastructure.Services
             doc.Save();
         }
 
-        public void SaveAs(WebBook book, string path)
-        {
-            throw new NotImplementedException();
-        }
-
         private void InsertParagraph(DocX doc, string text)
         {
             var paragraph = doc.InsertParagraph();
             paragraph.Append(text).IndentationFirstLine = 1;
             paragraph.SpacingAfter(5);
+            paragraph.Alignment = Alignment.both;
             if (Equals(text.First(), '—'))
                 paragraph.Italic();
         }
