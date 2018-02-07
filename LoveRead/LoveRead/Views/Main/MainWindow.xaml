@@ -1,14 +1,16 @@
-﻿<Window x:Class="LoveRead.Views.MainWindow"
+﻿<Window x:Class="LoveRead.Views.Main.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:readBook="clr-namespace:LoveRead.Views.Tabs.ReadBook"
+        xmlns:bookDetails="clr-namespace:LoveRead.Views.Tabs.BookDetails"
         mc:Ignorable="d"
         Title="LoveRead" 
         Height="700" MinHeight="600"
         Width="1000" MinWidth="950"
-        Icon="../Assets/favicon.ico"
+        Icon="../../Assets/favicon.ico"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <materialDesign:DrawerHost >
         <materialDesign:DrawerHost.BottomDrawerContent>
@@ -16,7 +18,15 @@
                 <ItemsControl ItemsSource="{Binding LogList}" />
             </ScrollViewer>
         </materialDesign:DrawerHost.BottomDrawerContent>
-        <Grid>
+        
+        <materialDesign:Transitioner SelectedIndex="0">
+            
+            <readBook:ReadBookView />
+            
+            <bookDetails:BookDetailsView />
+
+        </materialDesign:Transitioner>
+        <!--<Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -169,6 +179,6 @@
                     <Image MaxWidth="350" Source="{Binding BookLogo}"></Image>
                 </ScrollViewer>
             </Grid>
-        </Grid>
+        </Grid>-->
     </materialDesign:DrawerHost>
 </Window>

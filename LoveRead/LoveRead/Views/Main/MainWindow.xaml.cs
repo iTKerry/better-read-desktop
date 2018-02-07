@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using LoveRead.Properties;
-using LoveRead.ViewModel;
 
-namespace LoveRead.Views
+namespace LoveRead.Views.Main
 {
     public partial class MainWindow : IMainView
     {

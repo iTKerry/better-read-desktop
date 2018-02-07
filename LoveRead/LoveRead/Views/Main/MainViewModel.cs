@@ -3,17 +3,17 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LoveRead.Infrastructure;
 using LoveRead.Infrastructure.Services;
 using LoveRead.Properties;
+using LoveRead.ViewModel;
 using MaterialDesignColors;
 
-namespace LoveRead.ViewModel
+namespace LoveRead.Views.Main
 {
-    public partial class MainViewModel : ViewModelBase
+    public partial class MainViewModel : BaseViewModel
     {
         private readonly ILibraryScrapper _libraryScrapper;
         private readonly IDocService _docService;

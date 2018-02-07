@@ -107,10 +107,23 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.Props.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="Views\Main\MainViewModel.cs" />
+    <Compile Include="Views\Main\MainViewModel.Props.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Page Include="Views\MainWindow.xaml">
+    <Compile Include="Views\Tabs\BookDetails\BookDetailsView.xaml.cs">
+      <DependentUpon>BookDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\BookDetails\BookDetailsViewModel.cs" />
+    <Compile Include="Views\Tabs\ReadBook\ReadBookView.xaml.cs">
+      <DependentUpon>ReadBookView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Tabs\ReadBook\ReadBookViewModel.cs" />
+    <Page Include="Views\Tabs\BookDetails\BookDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Main\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -119,10 +132,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\Behaviour\TextBoxBehavior.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="Views\Main\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\Tabs\ReadBook\ReadBookView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

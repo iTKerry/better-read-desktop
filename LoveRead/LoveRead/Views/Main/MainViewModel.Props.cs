@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using LoveRead.Model;
-using LoveRead.Views;
 using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 
-namespace LoveRead.ViewModel
+namespace LoveRead.Views.Main
 {
     public partial class MainViewModel
     {

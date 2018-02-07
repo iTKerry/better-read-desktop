@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
 using LoveRead.Infrastructure;
 using LoveRead.Infrastructure.Services;
+using LoveRead.Views.Main;
 using Microsoft.Practices.ServiceLocation;
 using ScrapySharp.Network;
 
