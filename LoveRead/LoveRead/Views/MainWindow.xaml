@@ -4,12 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:behaviour="clr-namespace:LoveRead.Views.Behaviour"
         mc:Ignorable="d"
         Title="LoveRead" 
         Height="700" MinHeight="600"
         Width="1000" MinWidth="950"
         Icon="../Assets/favicon.ico"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BookInfoStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="TextWrapping" Value="Wrap" />
+                <Setter Property="IsReadOnly" Value="True" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontWeight" Value="Regular" />
+                <Setter Property="Margin" Value="16,0,0,0" />
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
     <materialDesign:DrawerHost >
         <materialDesign:DrawerHost.BottomDrawerContent>
             <ScrollViewer x:Name="LogList" VerticalScrollBarVisibility="Auto" Margin="16,5,5,5" MinHeight="250" MaxHeight="300">
@@ -149,19 +163,19 @@
                     <materialDesign:Card Padding="15" Margin="0,10,10,0">
                         <StackPanel >
                             <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Author:</TextBlock>
-                            <TextBlock Text="{Binding BookAuthor}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
+                            <TextBox Text="{Binding BookAuthor}" Style="{StaticResource BookInfoStyle}" />
                         </StackPanel>
                     </materialDesign:Card>
                     <materialDesign:Card Padding="15" Margin="0,10,10,0">
                         <StackPanel>
                             <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Book Name:</TextBlock>
-                            <TextBlock Text="{Binding BookName}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
+                            <TextBox Text="{Binding BookName}" Style="{StaticResource BookInfoStyle}" />
                         </StackPanel>
                     </materialDesign:Card>
                     <materialDesign:Card Padding="15" Margin="0,10,10,0">
                         <StackPanel>
                             <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Web Pages:</TextBlock>
-                            <TextBlock Text="{Binding BookPagesCount}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
+                            <TextBox Text="{Binding BookPagesCount}" Style="{StaticResource BookInfoStyle}" />
                         </StackPanel>
                     </materialDesign:Card>
                 </StackPanel>
