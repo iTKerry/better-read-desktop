@@ -6,28 +6,36 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              DataContext="{Binding Source={StaticResource Locator}, Path=ReadBook}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <StackPanel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBox Margin="16" materialDesign:HintAssist.Hint="Book address..."
-                 MinWidth="300" VerticalAlignment="Center" 
-                 IsEnabled="{Binding IsBookUrlEnabled}"
-                 Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}">
+                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                     MinWidth="300"
+                     IsEnabled="{Binding IsBookUrlEnabled}"
+                     Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
                     <KeyBinding Command="{Binding ReadBookCommand}" Key="Enter" />
                 </TextBox.InputBindings>
             </TextBox>
             <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
-                Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
-                Margin="16">
+                    Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
+                    Margin="16">
                 <materialDesign:PackIcon Kind="StepForward" />
             </Button>
             <Button Margin="16"
-                Command="{Binding ReadBookCommand}"
-                IsEnabled="{Binding IsReadButtonEnabled}" 
-                materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
-                materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}"
-                materialDesign:ButtonProgressAssist.IndicatorForeground="{StaticResource PrimaryHueDarkBrush}"
-                materialDesign:ButtonProgressAssist.IndicatorBackground="{StaticResource PrimaryHueLightBrush}">
+                    Command="{Binding ReadBookCommand}"
+                    IsEnabled="{Binding IsReadButtonEnabled}" 
+                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
+                    materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}"
+                    materialDesign:ButtonProgressAssist.IndicatorForeground="{StaticResource PrimaryHueDarkBrush}"
+                    materialDesign:ButtonProgressAssist.IndicatorBackground="{StaticResource PrimaryHueLightBrush}">
                 <Button.Style>
                     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionAccentButton}">
                         <Style.Triggers>

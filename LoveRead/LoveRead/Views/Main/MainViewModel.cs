@@ -24,9 +24,6 @@ namespace LoveRead.Views.Main
         private void InitData()
         {
             LogList = new ObservableCollection<string> {"Application started!\n...\n"};
-#if DEBUG
-            //BookUrl = "http://loveread.ec/read_book.php?id=14458&p=1";
-#endif
         }
 
         private void ProcessLogMessage(NotificationMessage<LogMessange> messange)
