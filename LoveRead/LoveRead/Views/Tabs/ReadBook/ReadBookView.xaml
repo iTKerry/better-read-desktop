@@ -5,13 +5,60 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             DataContext="{Binding Source={StaticResource Locator}, Path=ReadBook}">
     <Grid>
-        <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
+        <StackPanel>
+            <TextBox Margin="16" materialDesign:HintAssist.Hint="Book address..."
+                 MinWidth="300" VerticalAlignment="Center" 
+                 IsEnabled="{Binding IsBookUrlEnabled}"
+                 Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding ReadBookCommand}" Key="Enter" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
                 Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
-                VerticalAlignment="Center" HorizontalAlignment="Left" 
                 Margin="16">
-            <materialDesign:PackIcon Kind="StepForward" />
-        </Button>
+                <materialDesign:PackIcon Kind="StepForward" />
+            </Button>
+            <Button Margin="16"
+                Command="{Binding ReadBookCommand}"
+                IsEnabled="{Binding IsReadButtonEnabled}" 
+                materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
+                materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}"
+                materialDesign:ButtonProgressAssist.IndicatorForeground="{StaticResource PrimaryHueDarkBrush}"
+                materialDesign:ButtonProgressAssist.IndicatorBackground="{StaticResource PrimaryHueLightBrush}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionAccentButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsReadButtonEnabled}" Value="False">
+                                <Setter Property="Opacity" Value="1" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Content>
+                    <materialDesign:PackIcon Height="24" Width="24">
+                        <materialDesign:PackIcon.Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="Kind" Value="BookOpenPageVariant" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsReadingComplete}" Value="True">
+                                        <Setter Property="Kind" Value="Check" />
+                                        <DataTrigger.EnterActions>
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </DataTrigger.EnterActions>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:PackIcon.Style>
+                    </materialDesign:PackIcon>
+                </Button.Content>
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

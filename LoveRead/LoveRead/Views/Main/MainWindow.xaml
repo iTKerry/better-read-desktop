@@ -94,45 +94,7 @@
                     </StackPanel>
                 </DockPanel>
             </materialDesign:ColorZone>
-            <Button Margin="350,-28,0,0" Grid.Row="1"
-                    HorizontalAlignment="Left"
-                    Command="{Binding ReadBookCommand}"
-                    IsEnabled="{Binding IsReadButtonEnabled}" 
-                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
-                    materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}"
-                    materialDesign:ButtonProgressAssist.IndicatorForeground="{StaticResource PrimaryHueDarkBrush}"
-                    materialDesign:ButtonProgressAssist.IndicatorBackground="{StaticResource PrimaryHueLightBrush}">
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionAccentButton}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsReadButtonEnabled}" Value="False">
-                                <Setter Property="Opacity" Value="1" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Content>
-                    <materialDesign:PackIcon Height="24" Width="24">
-                        <materialDesign:PackIcon.Style>
-                            <Style TargetType="materialDesign:PackIcon">
-                                <Setter Property="Kind" Value="BookOpenPageVariant" />
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsReadingComplete}" Value="True">
-                                        <Setter Property="Kind" Value="Check" />
-                                        <DataTrigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.EnterActions>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </materialDesign:PackIcon.Style>
-                    </materialDesign:PackIcon>
-                </Button.Content>
-            </Button>
+            
             <Button Command="{Binding GenerateDocCommand}" 
                     IsEnabled="{Binding IsGenerateButtonEnabled}"
                     Margin="730,-28,0,0" Grid.Row="1"

@@ -109,7 +109,6 @@
     </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="Views\Main\MainViewModel.cs" />
-    <Compile Include="Views\Main\MainViewModel.Props.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\Tabs\BookDetails\BookDetailsView.xaml.cs">
       <DependentUpon>BookDetailsView.xaml</DependentUpon>

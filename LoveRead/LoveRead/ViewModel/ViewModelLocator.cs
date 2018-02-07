@@ -4,6 +4,8 @@ using GalaSoft.MvvmLight.Threading;
 using LoveRead.Infrastructure;
 using LoveRead.Infrastructure.Services;
 using LoveRead.Views.Main;
+using LoveRead.Views.Tabs.BookDetails;
+using LoveRead.Views.Tabs.ReadBook;
 using Microsoft.Practices.ServiceLocation;
 using ScrapySharp.Network;
 
@@ -20,6 +22,8 @@ namespace LoveRead.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<ReadBookViewModel>();
+            SimpleIoc.Default.Register<BookDetailsViewModel>();
 
             SimpleIoc.Default.Register<IDownloadService, DownloadService>();
             SimpleIoc.Default.Register<IDocService, DocService>();
@@ -28,7 +32,9 @@ namespace LoveRead.ViewModel
         }
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-        
+        public ReadBookViewModel ReadBook => ServiceLocator.Current.GetInstance<ReadBookViewModel>();
+        public BookDetailsViewModel BookDetails => ServiceLocator.Current.GetInstance<BookDetailsViewModel>();
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
