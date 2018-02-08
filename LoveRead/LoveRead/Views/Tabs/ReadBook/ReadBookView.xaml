@@ -68,6 +68,7 @@
             </materialDesign:Card>
             <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
                     Command="{Binding MoveNextCommand}"
+                    Visibility="{Binding IsMoveNextVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Margin="16">
                 <materialDesign:PackIcon Kind="StepForward" />
             </Button>

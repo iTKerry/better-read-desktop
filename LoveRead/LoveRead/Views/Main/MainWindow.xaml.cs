@@ -20,7 +20,8 @@ namespace LoveRead.Views.Main
             Settings.Default.Save();
         }
 
-        public void ScrollLogToEnd() => LogList.ScrollToEnd();
+        public void ScrollLogToEnd() 
+            => LogList.ScrollToEnd();
     }
 
     public interface IMainView

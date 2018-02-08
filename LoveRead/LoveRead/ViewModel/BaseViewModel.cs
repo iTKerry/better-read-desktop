@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 
@@ -6,6 +7,9 @@ namespace LoveRead.ViewModel
 {
     public class BaseViewModel : ViewModelBase, IDisposable
     {
+        public async void Start()
+            => await ReloadDataAsync();
+
         protected async Task ReloadDataAsync()
         {
             try
@@ -14,15 +18,12 @@ namespace LoveRead.ViewModel
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex.ToString());
+                Debug.WriteLine(ex.ToString());
             }
         }
 
         protected virtual Task InitializeAsync() 
             => Task.FromResult(0);
-
-        public async void Start()
-            => await ReloadDataAsync();
 
         public virtual void Dispose()
         {

@@ -7,10 +7,24 @@
              mc:Ignorable="d" 
              DataContext="{Binding Source={StaticResource Locator}, Path=BookDetails}">
     <Grid>
-        <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
-                Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}"
-                Margin="16">
-            <materialDesign:PackIcon Kind="StepBackward" />
-        </Button>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <materialDesign:Card Padding="16" Background="{StaticResource MaterialDesignPaper}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
+                </StackPanel>
+            </materialDesign:Card>
+            <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
+                    Command="{Binding MoveBackCommand}"
+                    Margin="16">
+                <materialDesign:PackIcon Kind="StepBackward" />
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

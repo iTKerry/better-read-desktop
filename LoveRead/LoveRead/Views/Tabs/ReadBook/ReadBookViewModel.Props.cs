@@ -6,6 +6,13 @@ namespace LoveRead.Views.Tabs.ReadBook
     {
         public ReadBookView ReadBookView { get; set; }
 
+        private WebBook _book;
+        private WebBook Book
+        {
+            get => _book;
+            set => Set(() => Book, ref _book, value);
+        }
+
         private bool _isBookUrlReadOnly;
         public bool IsBookUrlReadOnly
         {
@@ -52,11 +59,11 @@ namespace LoveRead.Views.Tabs.ReadBook
             set => Set(() => ReadingProgress, ref _readingProgress, value);
         }
 
-        private WebBook _book;
-        private WebBook Book
+        private bool _isMoveNextVisible;
+        public bool IsMoveNextVisible
         {
-            get => _book;
-            set => Set(() => Book, ref _book, value);
+            get => _isMoveNextVisible;
+            set => Set(() => IsMoveNextVisible, ref _isMoveNextVisible, value);
         }
     }
 }
