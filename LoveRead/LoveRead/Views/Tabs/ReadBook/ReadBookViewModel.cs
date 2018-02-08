@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Messaging;
 using LoveRead.Infrastructure;
 using LoveRead.Infrastructure.Services;
 using LoveRead.ViewModel;
+using MaterialDesignThemes.Wpf.Transitions;
 
 namespace LoveRead.Views.Tabs.ReadBook
 {
@@ -13,6 +14,9 @@ namespace LoveRead.Views.Tabs.ReadBook
 
         public RelayCommand ReadBookCommand
             => new RelayCommand(async () => await ReadBook());
+
+        public RelayCommand MoveNextCommand
+            => new RelayCommand(() => Transitioner.MoveNextCommand.Execute(null, ReadBookView));
 
         public ReadBookViewModel(ILibraryScrapper libraryScrapper)
         {
@@ -24,7 +28,6 @@ namespace LoveRead.Views.Tabs.ReadBook
         
         protected override Task InitializeAsync()
         {
-            IsBookUrlEnabled = true;
 #if DEBUG
             BookUrl = "http://loveread.ec/read_book.php?id=14458&p=1";
 #endif
@@ -44,13 +47,13 @@ namespace LoveRead.Views.Tabs.ReadBook
                 case 1:
                     IsReading = true;
                     IsReadButtonEnabled = false;
-                    IsBookUrlEnabled = false;
+                    IsBookUrlReadOnly = true;
                     IsReadingComplete = false;
                     break;
                 case 100:
                     IsReading = false;
                     IsReadButtonEnabled = true;
-                    IsBookUrlEnabled = true;
+                    IsBookUrlReadOnly = false;
                     IsReadingComplete = true;
                     break;
             }

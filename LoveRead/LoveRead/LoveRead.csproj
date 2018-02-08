@@ -114,6 +114,7 @@
       <DependentUpon>BookDetailsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\BookDetails\BookDetailsViewModel.cs" />
+    <Compile Include="Views\Tabs\BookDetails\BookDetailsViewModel.Props.cs" />
     <Compile Include="Views\Tabs\ReadBook\ReadBookView.xaml.cs">
       <DependentUpon>ReadBookView.xaml</DependentUpon>
     </Compile>

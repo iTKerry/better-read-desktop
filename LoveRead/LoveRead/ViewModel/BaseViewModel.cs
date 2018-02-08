@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight;
 
 namespace LoveRead.ViewModel
 {
-    public class BaseViewModel : ViewModelBase
+    public class BaseViewModel : ViewModelBase, IDisposable
     {
         protected async Task ReloadDataAsync()
         {
@@ -23,5 +23,9 @@ namespace LoveRead.ViewModel
 
         public async void Start()
             => await ReloadDataAsync();
+
+        public virtual void Dispose()
+        {
+        }
     }
 }

@@ -4,11 +4,13 @@ namespace LoveRead.Views.Tabs.ReadBook
 {
     public partial class ReadBookViewModel
     {
-        private bool _isBookUrlEnabled;
-        public bool IsBookUrlEnabled
+        public ReadBookView ReadBookView { get; set; }
+
+        private bool _isBookUrlReadOnly;
+        public bool IsBookUrlReadOnly
         {
-            get => _isBookUrlEnabled;
-            set => Set(() => IsBookUrlEnabled, ref _isBookUrlEnabled, value);
+            get => _isBookUrlReadOnly;
+            set => Set(() => IsBookUrlReadOnly, ref _isBookUrlReadOnly, value);
         }
 
         private string _bookUrl;

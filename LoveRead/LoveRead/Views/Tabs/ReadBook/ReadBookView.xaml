@@ -15,57 +15,61 @@
     </UserControl.Resources>
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBox Margin="16" materialDesign:HintAssist.Hint="Book address..."
-                     Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                     MinWidth="300"
-                     IsEnabled="{Binding IsBookUrlEnabled}"
-                     Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}">
-                <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding ReadBookCommand}" Key="Enter" />
-                </TextBox.InputBindings>
-            </TextBox>
-            <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
-                    Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
-                    Margin="16">
-                <materialDesign:PackIcon Kind="StepForward" />
-            </Button>
-            <Button Margin="16"
-                    Command="{Binding ReadBookCommand}"
-                    IsEnabled="{Binding IsReadButtonEnabled}" 
-                    materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
-                    materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}"
-                    materialDesign:ButtonProgressAssist.IndicatorForeground="{StaticResource PrimaryHueDarkBrush}"
-                    materialDesign:ButtonProgressAssist.IndicatorBackground="{StaticResource PrimaryHueLightBrush}">
-                <Button.Style>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionAccentButton}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsReadButtonEnabled}" Value="False">
-                                <Setter Property="Opacity" Value="1" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-                <Button.Content>
-                    <materialDesign:PackIcon Height="24" Width="24">
-                        <materialDesign:PackIcon.Style>
-                            <Style TargetType="materialDesign:PackIcon">
-                                <Setter Property="Kind" Value="BookOpenPageVariant" />
+            <materialDesign:Card VerticalAlignment="Center" HorizontalAlignment="Center" Padding="16" Background="{StaticResource MaterialDesignPaper}">
+                <StackPanel>
+                    <TextBox Margin="16" materialDesign:HintAssist.Hint="Book address..."
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             MinWidth="300"
+                             IsReadOnly="{Binding IsBookUrlReadOnly}"
+                             Text="{Binding BookUrl, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding ReadBookCommand}" Key="Enter" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Margin="16"
+                            Command="{Binding ReadBookCommand}"
+                            IsEnabled="{Binding IsReadButtonEnabled}" 
+                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
+                            materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}"
+                            materialDesign:ButtonProgressAssist.IndicatorForeground="{StaticResource PrimaryHueDarkBrush}"
+                            materialDesign:ButtonProgressAssist.IndicatorBackground="{StaticResource PrimaryHueLightBrush}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionAccentButton}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsReadingComplete}" Value="True">
-                                        <Setter Property="Kind" Value="Check" />
-                                        <DataTrigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </DataTrigger.EnterActions>
+                                    <DataTrigger Binding="{Binding IsReadButtonEnabled}" Value="False">
+                                        <Setter Property="Opacity" Value="1" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </materialDesign:PackIcon.Style>
-                    </materialDesign:PackIcon>
-                </Button.Content>
+                        </Button.Style>
+                        <Button.Content>
+                            <materialDesign:PackIcon Height="24" Width="24">
+                                <materialDesign:PackIcon.Style>
+                                    <Style TargetType="materialDesign:PackIcon">
+                                        <Setter Property="Kind" Value="BookOpenPageVariant" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsReadingComplete}" Value="True">
+                                                <Setter Property="Kind" Value="Check" />
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:PackIcon.Style>
+                            </materialDesign:PackIcon>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+            </materialDesign:Card>
+            <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
+                    Command="{Binding MoveNextCommand}"
+                    Margin="16">
+                <materialDesign:PackIcon Kind="StepForward" />
             </Button>
         </StackPanel>
     </Grid>

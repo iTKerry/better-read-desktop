@@ -3,13 +3,12 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using GalaSoft.MvvmLight.Command;
 using LoveRead.Infrastructure.Services;
-using LoveRead.Model;
 using LoveRead.Properties;
 using LoveRead.ViewModel;
 
 namespace LoveRead.Views.Tabs.BookDetails
 {
-    public class BookDetailsViewModel : BaseViewModel
+    public partial class BookDetailsViewModel : BaseViewModel
     {
         private readonly IDocService _docService;
 
@@ -31,53 +30,11 @@ namespace LoveRead.Views.Tabs.BookDetails
             SaveAsPath = Settings.Default.DownloadPath;
         }
 
-        private string _saveAsPath;
-        public string SaveAsPath
+        public override void Dispose()
         {
-            get => _saveAsPath;
-            set => Set(() => SaveAsPath, ref _saveAsPath, value);
-        }
+            Settings.Default.DownloadPath = SaveAsPath;
 
-        private WebBook _book;
-        private WebBook Book
-        {
-            get => _book;
-            set => Set(() => Book, ref _book, value);
-        }
-
-        private string _bookName;
-        public string BookName
-        {
-            get => _bookName;
-            set => Set(() => BookName, ref _bookName, value);
-        }
-
-        private string _bookAuthor;
-        public string BookAuthor
-        {
-            get => _bookAuthor;
-            set => Set(() => BookAuthor, ref _bookAuthor, value);
-        }
-
-        private string _bookLogo;
-        public string BookLogo
-        {
-            get => _bookLogo;
-            set => Set(() => BookLogo, ref _bookLogo, value);
-        }
-
-        private int _bookPagesCount;
-        public int BookPagesCount
-        {
-            get => _bookPagesCount;
-            set => Set(() => BookPagesCount, ref _bookPagesCount, value);
-        }
-
-        private bool _isGenerateButtonEnabled;
-        public bool IsGenerateButtonEnabled
-        {
-            get => _isGenerateButtonEnabled;
-            set => Set(() => IsGenerateButtonEnabled, ref _isGenerateButtonEnabled, value);
+            base.Dispose();
         }
 
         private void GetSaveAsPath()

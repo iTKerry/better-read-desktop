@@ -17,7 +17,6 @@ namespace LoveRead.Views.Main
         {
             base.OnClosing(e);
 
-            //Settings.Default.DownloadPath = MainViewModel.SaveAsPath;
             Settings.Default.Save();
         }
 
