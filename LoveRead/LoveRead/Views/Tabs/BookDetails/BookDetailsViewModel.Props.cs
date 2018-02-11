@@ -4,18 +4,20 @@ namespace LoveRead.Views.Tabs.BookDetails
 {
     public partial class BookDetailsViewModel
     {
-        private string _saveAsPath;
-        public string SaveAsPath
-        {
-            get => _saveAsPath;
-            set => Set(() => SaveAsPath, ref _saveAsPath, value);
-        }
+        public BookDetailsView BookDetailsView;
 
         private WebBook _book;
         private WebBook Book
         {
             get => _book;
             set => Set(() => Book, ref _book, value);
+        }
+
+        private string _saveAsPath;
+        public string SaveAsPath
+        {
+            get => _saveAsPath;
+            set => Set(() => SaveAsPath, ref _saveAsPath, value);
         }
 
         private string _bookName;

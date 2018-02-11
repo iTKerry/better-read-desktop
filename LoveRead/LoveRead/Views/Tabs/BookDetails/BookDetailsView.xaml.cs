@@ -1,15 +1,11 @@
-﻿using System.Windows.Controls;
-
-namespace LoveRead.Views.Tabs.BookDetails
+﻿namespace LoveRead.Views.Tabs.BookDetails
 {
-    /// <summary>
-    /// Interaction logic for BookDetailsView.xaml
-    /// </summary>
-    public partial class BookDetailsView : UserControl
+    public partial class BookDetailsView
     {
         public BookDetailsView()
         {
             InitializeComponent();
+            ((BookDetailsViewModel) DataContext).BookDetailsView = this;
         }
     }
 }

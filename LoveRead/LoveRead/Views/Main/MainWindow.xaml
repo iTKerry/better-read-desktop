@@ -22,22 +22,22 @@
         <materialDesign:Transitioner SelectedIndex="0">
 
             <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
-                <materialDesign:TransitionerSlide.OpeningEffect>
-                    <materialDesign:TransitionEffect Kind="SlideInFromRight" Duration="0:0:0.5" />
-                </materialDesign:TransitionerSlide.OpeningEffect>
                 <materialDesign:TransitionerSlide.ForwardWipe>
-                    <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5"  />
+                    <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:SlideWipe Direction="Right" Duration="0:0:0.5" />
+                </materialDesign:TransitionerSlide.BackwardWipe>
 
                 <readBook:ReadBookView />
             </materialDesign:TransitionerSlide>
 
             <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
-                <materialDesign:TransitionerSlide.OpeningEffect>
-                    <materialDesign:TransitionEffect Kind="SlideInFromRight" Duration="0:0:0.5" />
-                </materialDesign:TransitionerSlide.OpeningEffect>
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
+                </materialDesign:TransitionerSlide.ForwardWipe>
                 <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5"  />
+                    <materialDesign:SlideWipe Direction="Right" Duration="0:0:0.5"  />
                 </materialDesign:TransitionerSlide.BackwardWipe>
                 
                 <bookDetails:BookDetailsView />

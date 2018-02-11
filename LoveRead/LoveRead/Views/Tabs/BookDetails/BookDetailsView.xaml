@@ -6,25 +6,58 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              DataContext="{Binding Source={StaticResource Locator}, Path=BookDetails}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BookDetails" TargetType="{x:Type materialDesign:Card}">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth2" />
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <materialDesign:Card Padding="16" Background="{StaticResource MaterialDesignPaper}">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
-                    <TextBlock Style="{StaticResource MaterialDesignCaptionTextBlock}">Sample Text</TextBlock>
+            <materialDesign:Card Background="{StaticResource MaterialDesignPaper}" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                <StackPanel Orientation="Horizontal" CanVerticallyScroll="True" CanHorizontallyScroll="True">
+                    <StackPanel Margin="10,5,5,5" VerticalAlignment="Center">
+                        <materialDesign:Card Style="{StaticResource BookDetails}">
+                            <StackPanel >
+                                <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Author:</TextBlock>
+                                <TextBlock Text="{Binding BookAuthor}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card Style="{StaticResource BookDetails}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Name:</TextBlock>
+                                <TextBlock Text="{Binding BookName}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
+                            </StackPanel>
+                        </materialDesign:Card>
+                        <materialDesign:Card Style="{StaticResource BookDetails}">
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}">Pages:</TextBlock>
+                                <TextBlock Text="{Binding BookPagesCount}" Style="{StaticResource MaterialDesignTitleTextBlock}" TextWrapping="Wrap" Margin="16,0,0,0" />
+                            </StackPanel>
+                        </materialDesign:Card>
+                    </StackPanel>
+                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="5" Background="{StaticResource MaterialDesignPaper}" Margin="5,10,10,10">
+                        <Image Source="{Binding BookLogo}" MaxHeight="350" />
+                    </materialDesign:Card>
                 </StackPanel>
             </materialDesign:Card>
-            <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
-                    Command="{Binding MoveBackCommand}"
-                    Margin="16">
-                <materialDesign:PackIcon Kind="StepBackward" />
-            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" 
+                        Command="{Binding MoveBackCommand}"
+                        Margin="16">
+                    <materialDesign:PackIcon Kind="StepBackward" />
+                </Button>
+                <Button Style="{DynamicResource MaterialDesignFloatingActionAccentButton}"                     
+                        Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
+                        VerticalAlignment="Top"
+                        Margin="16">
+                    <materialDesign:PackIcon Kind="StepForward" />
+                </Button>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

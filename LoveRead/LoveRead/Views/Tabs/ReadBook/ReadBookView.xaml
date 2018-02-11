@@ -15,7 +15,11 @@
     </UserControl.Resources>
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <materialDesign:Card VerticalAlignment="Center" HorizontalAlignment="Center" Padding="16" Background="{StaticResource MaterialDesignPaper}">
+            <materialDesign:Card VerticalAlignment="Center" 
+                                 HorizontalAlignment="Center" 
+                                 Padding="16" 
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                 Background="{StaticResource MaterialDesignPaper}">
                 <StackPanel>
                     <TextBox Margin="16" materialDesign:HintAssist.Hint="Book address..."
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"

@@ -9,6 +9,7 @@ using LoveRead.Model;
 using LoveRead.Properties;
 using LoveRead.ViewModel;
 using LoveRead.Views.Tabs.ReadBook;
+using MaterialDesignThemes.Wpf.Transitions;
 
 namespace LoveRead.Views.Tabs.BookDetails
 {
@@ -45,6 +46,9 @@ namespace LoveRead.Views.Tabs.BookDetails
                 Settings.Default.DownloadPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             SaveAsPath = Settings.Default.DownloadPath;
 
+            if(Book != null)
+                GetBookDetails();
+
             return base.InitializeAsync();
         }
 
@@ -52,16 +56,30 @@ namespace LoveRead.Views.Tabs.BookDetails
             => Settings.Default.DownloadPath = SaveAsPath;
 
         private void MoveBack()
-            => _messanger.NotifyTabSwitch(this, nameof(ReadBookViewModel), new TabSwitchMessange());
+        {
+            _messanger.NotifyTabSwitch(this, nameof(ReadBookViewModel), new TabSwitchMessange());
+            Transitioner.MovePreviousCommand.Execute(null, BookDetailsView);
+        }
 
-        private void ProcessTabSwitchMessange(NotificationMessage<TabSwitchMessange> message)
+        private async void ProcessTabSwitchMessange(NotificationMessage<TabSwitchMessange> message)
         {
             if (!Equals(GetType().Name, message.Target))
                 return;
 
             var book = (WebBook) message.Content.Data;
-            if (Book is null || Book.Id != book.Id)
-                Book = book;
+            if (!(Book is null) && Book.Id == book.Id)
+                return;
+
+            Book = book;
+            await ReloadDataAsync();
+        }
+
+        private void GetBookDetails()
+        {
+            BookName = Book.Name;
+            BookAuthor = Book.Author;
+            BookLogo = Book.ImageUrl;
+            BookPagesCount = Book.PagesCount;
         }
 
         private void GetSaveAsPath()
