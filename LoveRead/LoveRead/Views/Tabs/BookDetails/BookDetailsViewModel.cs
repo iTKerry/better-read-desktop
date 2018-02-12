@@ -1,37 +1,25 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LoveRead.Infrastructure.Services;
 using LoveRead.Model;
-using LoveRead.Properties;
 using LoveRead.ViewModel;
 using LoveRead.Views.Tabs.ReadBook;
+using MaterialDesignThemes.Wpf.Transitions;
 
 namespace LoveRead.Views.Tabs.BookDetails
 {
     public partial class BookDetailsViewModel : BaseViewModel
     {
-        private readonly IDocService _docService;
         private readonly IMessangerService _messanger;
 
-        public RelayCommand GetSaveAsPathCommand
-            => new RelayCommand(GetSaveAsPath);
-
-        public RelayCommand GenerateDocCommand
-            => new RelayCommand(() => _docService.SaveAs(Book, SaveAsPath));
-
-        public RelayCommand OpenSaveAsFolderCommand
-            => new RelayCommand(() => Process.Start($@"{SaveAsPath}"));
+        public RelayCommand MoveNextCommand
+            => new RelayCommand(MoveNext);
 
         public RelayCommand MoveBackCommand
             => new RelayCommand(MoveBack);
 
-        public BookDetailsViewModel(IDocService docService, IMessangerService messanger)
+        public BookDetailsViewModel(IMessangerService messanger)
         {
-            _docService = docService;
             _messanger = messanger;
 
             Messenger.Default.Register<NotificationMessage<TabSwitchMessange>>(this, ProcessTabSwitchMessange);
@@ -39,20 +27,17 @@ namespace LoveRead.Views.Tabs.BookDetails
             Start();
         }
 
-        protected override Task InitializeAsync()
+        private void MoveNext()
         {
-            if (string.IsNullOrEmpty(Settings.Default.DownloadPath))
-                Settings.Default.DownloadPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            SaveAsPath = Settings.Default.DownloadPath;
-
-            return base.InitializeAsync();
+            _messanger.NotifyTabSwitch(this, nameof(BookDetailsViewModel), new TabSwitchMessange { Data = Book });
+            Transitioner.MoveNextCommand.Execute(null, BookDetailsView);
         }
 
-        public override void Dispose()
-            => Settings.Default.DownloadPath = SaveAsPath;
-
         private void MoveBack()
-            => _messanger.NotifyTabSwitch(this, nameof(ReadBookViewModel), new TabSwitchMessange());
+        {
+            _messanger.NotifyTabSwitch(this, nameof(ReadBookViewModel), new TabSwitchMessange());
+            Transitioner.MovePreviousCommand.Execute(null, BookDetailsView);
+        }
 
         private void ProcessTabSwitchMessange(NotificationMessage<TabSwitchMessange> message)
         {
@@ -62,13 +47,6 @@ namespace LoveRead.Views.Tabs.BookDetails
             var book = (WebBook) message.Content.Data;
             if (Book is null || Book.Id != book.Id)
                 Book = book;
-        }
-
-        private void GetSaveAsPath()
-        {
-            using (var dialog = new FolderBrowserDialog())
-                if (dialog.ShowDialog() == DialogResult.OK)
-                    SaveAsPath = dialog.SelectedPath;
         }
     }
 }

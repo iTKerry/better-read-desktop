@@ -4,12 +4,7 @@ namespace LoveRead.Views.Tabs.BookDetails
 {
     public partial class BookDetailsViewModel
     {
-        private string _saveAsPath;
-        public string SaveAsPath
-        {
-            get => _saveAsPath;
-            set => Set(() => SaveAsPath, ref _saveAsPath, value);
-        }
+        public BookDetailsView BookDetailsView { get; set; }
 
         private WebBook _book;
         private WebBook Book
@@ -44,13 +39,6 @@ namespace LoveRead.Views.Tabs.BookDetails
         {
             get => _bookPagesCount;
             set => Set(() => BookPagesCount, ref _bookPagesCount, value);
-        }
-
-        private bool _isGenerateButtonEnabled;
-        public bool IsGenerateButtonEnabled
-        {
-            get => _isGenerateButtonEnabled;
-            set => Set(() => IsGenerateButtonEnabled, ref _isGenerateButtonEnabled, value);
         }
     }
 }
