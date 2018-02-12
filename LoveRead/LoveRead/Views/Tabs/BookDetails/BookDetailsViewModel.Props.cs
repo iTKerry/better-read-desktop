@@ -13,6 +13,13 @@ namespace LoveRead.Views.Tabs.BookDetails
             set => Set(() => Book, ref _book, value);
         }
 
+        private string _saveAsPath;
+        public string SaveAsPath
+        {
+            get => _saveAsPath;
+            set => Set(() => SaveAsPath, ref _saveAsPath, value);
+        }
+
         private string _bookName;
         public string BookName
         {

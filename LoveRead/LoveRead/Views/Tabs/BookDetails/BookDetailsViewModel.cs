@@ -39,14 +39,25 @@ namespace LoveRead.Views.Tabs.BookDetails
             Transitioner.MovePreviousCommand.Execute(null, BookDetailsView);
         }
 
-        private void ProcessTabSwitchMessange(NotificationMessage<TabSwitchMessange> message)
+        private async void ProcessTabSwitchMessange(NotificationMessage<TabSwitchMessange> message)
         {
             if (!Equals(GetType().Name, message.Target))
                 return;
 
             var book = (WebBook) message.Content.Data;
-            if (Book is null || Book.Id != book.Id)
-                Book = book;
+            if (!(Book is null) && Book.Id == book.Id)
+                return;
+
+            Book = book;
+            await ReloadDataAsync();
+        }
+
+        private void GetBookDetails()
+        {
+            BookName = Book.Name;
+            BookAuthor = Book.Author;
+            BookLogo = Book.ImageUrl;
+            BookPagesCount = Book.PagesCount;
         }
     }
 }
