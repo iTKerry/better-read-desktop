@@ -99,6 +99,7 @@
     <Compile Include="Infrastructure\Services\DocService.cs" />
     <Compile Include="Infrastructure\Services\DownloadService.cs" />
     <Compile Include="Infrastructure\Services\MessangerService.cs" />
+    <Compile Include="Infrastructure\Services\PaletteService.cs" />
     <Compile Include="Model\WebBook.cs" />
     <Compile Include="Model\WebBookPage.cs" />
     <Compile Include="Infrastructure\LibraryScrapper.cs" />

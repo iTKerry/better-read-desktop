@@ -7,55 +7,71 @@
         xmlns:readBook="clr-namespace:LoveRead.Views.Tabs.ReadBook"
         xmlns:bookDetails="clr-namespace:LoveRead.Views.Tabs.BookDetails"
         xmlns:saveBook="clr-namespace:LoveRead.Views.Tabs.SaveBook"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="LoveRead" 
         Height="700" MinHeight="600"
         Width="1000" MinWidth="950"
         Icon="../../Assets/favicon.ico"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
-    <materialDesign:DrawerHost >
-        <materialDesign:DrawerHost.BottomDrawerContent>
-            <ScrollViewer x:Name="LogList" VerticalScrollBarVisibility="Auto" Margin="16,5,5,5" MinHeight="250" MaxHeight="300">
-                <ItemsControl ItemsSource="{Binding LogList}" />
-            </ScrollViewer>
-        </materialDesign:DrawerHost.BottomDrawerContent>
-        
-        <materialDesign:Transitioner SelectedIndex="0">
+    <materialDesign:DialogHost>
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel Margin="16" Width="400" Height="550">
+                <TreeView x:Name="FoldersItem" />
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                        IsCancel="True"
+                        Margin="0 8 8 0"
+                        Command="materialDesign:DialogHost.CloseDialogCommand">
+                    <Button.CommandParameter>
+                        <system:Boolean>False</system:Boolean>
+                    </Button.CommandParameter>
+                    CANCEL
+                </Button>
+            </StackPanel>
+        </materialDesign:DialogHost.DialogContent>
 
-            <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
-                <materialDesign:TransitionerSlide.ForwardWipe>
-                    <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
-                </materialDesign:TransitionerSlide.ForwardWipe>
-                <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Right" Duration="0:0:0.5" />
-                </materialDesign:TransitionerSlide.BackwardWipe>
+        <materialDesign:DrawerHost>
+            <materialDesign:DrawerHost.BottomDrawerContent>
+                <ScrollViewer x:Name="LogList" VerticalScrollBarVisibility="Auto" Margin="16,5,5,5" MinHeight="250" MaxHeight="300">
+                    <ItemsControl ItemsSource="{Binding LogList}" />
+                </ScrollViewer>
+            </materialDesign:DrawerHost.BottomDrawerContent>
 
-                <readBook:ReadBookView />
-            </materialDesign:TransitionerSlide>
+            <materialDesign:Transitioner SelectedIndex="0">
+                <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
+                    <materialDesign:TransitionerSlide.ForwardWipe>
+                        <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
+                    </materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:TransitionerSlide.BackwardWipe>
+                        <materialDesign:SlideWipe Direction="Right" Duration="0:0:0.5" />
+                    </materialDesign:TransitionerSlide.BackwardWipe>
 
-            <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
-                <materialDesign:TransitionerSlide.ForwardWipe>
-                    <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
-                </materialDesign:TransitionerSlide.ForwardWipe>
-                <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Right" Duration="0:0:0.5"  />
-                </materialDesign:TransitionerSlide.BackwardWipe>
-                
-                <bookDetails:BookDetailsView />
-            </materialDesign:TransitionerSlide>
+                    <readBook:ReadBookView />
+                </materialDesign:TransitionerSlide>
 
-            <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
-                <materialDesign:TransitionerSlide.ForwardWipe>
-                    <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
-                </materialDesign:TransitionerSlide.ForwardWipe>
-                <materialDesign:TransitionerSlide.BackwardWipe>
-                    <materialDesign:SlideWipe Direction="Right" Duration="0:0:0.5"  />
-                </materialDesign:TransitionerSlide.BackwardWipe>
+                <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
+                    <materialDesign:TransitionerSlide.ForwardWipe>
+                        <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
+                    </materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:TransitionerSlide.BackwardWipe>
+                        <materialDesign:SlideWipe Direction="Right" Duration="0:0:0.5"  />
+                    </materialDesign:TransitionerSlide.BackwardWipe>
 
-                <saveBook:SaveBookView />
-            </materialDesign:TransitionerSlide>
-        </materialDesign:Transitioner>
-        <!--<Grid>
+                    <bookDetails:BookDetailsView />
+                </materialDesign:TransitionerSlide>
+
+                <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
+                    <materialDesign:TransitionerSlide.ForwardWipe>
+                        <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
+                    </materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:TransitionerSlide.BackwardWipe>
+                        <materialDesign:SlideWipe Direction="Right" Duration="0:0:0.5"  />
+                    </materialDesign:TransitionerSlide.BackwardWipe>
+
+                    <saveBook:SaveBookView />
+                </materialDesign:TransitionerSlide>
+            </materialDesign:Transitioner>
+            <!--<Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -171,5 +187,6 @@
                 </ScrollViewer>
             </Grid>
         </Grid>-->
-    </materialDesign:DrawerHost>
+        </materialDesign:DrawerHost>
+    </materialDesign:DialogHost>
 </Window>
