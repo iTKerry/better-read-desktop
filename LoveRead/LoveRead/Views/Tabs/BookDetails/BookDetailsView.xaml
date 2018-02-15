@@ -52,7 +52,7 @@
                         Margin="16">
                     <materialDesign:PackIcon Kind="StepBackward" />
                 </Button>
-                <Button Style="{DynamicResource MaterialDesignFloatingActionAccentButton}"                     
+                <Button Style="{DynamicResource MaterialDesignFloatingActionAccentButton}"
                         Command="{Binding MoveNextCommand}"               
                         Margin="16">
                     <materialDesign:PackIcon Kind="StepForward" />

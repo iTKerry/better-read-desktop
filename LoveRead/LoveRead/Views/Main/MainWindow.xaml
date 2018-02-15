@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:readBook="clr-namespace:LoveRead.Views.Tabs.ReadBook"
         xmlns:bookDetails="clr-namespace:LoveRead.Views.Tabs.BookDetails"
+        xmlns:saveBook="clr-namespace:LoveRead.Views.Tabs.SaveBook"
         mc:Ignorable="d"
         Title="LoveRead" 
         Height="700" MinHeight="600"
@@ -43,6 +44,16 @@
                 <bookDetails:BookDetailsView />
             </materialDesign:TransitionerSlide>
 
+            <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
+                </materialDesign:TransitionerSlide.ForwardWipe>
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:SlideWipe Direction="Right" Duration="0:0:0.5"  />
+                </materialDesign:TransitionerSlide.BackwardWipe>
+
+                <saveBook:SaveBookView />
+            </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
         <!--<Grid>
             <Grid.RowDefinitions>

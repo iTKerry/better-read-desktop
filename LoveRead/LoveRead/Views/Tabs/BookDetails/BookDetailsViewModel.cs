@@ -4,6 +4,7 @@ using LoveRead.Infrastructure.Services;
 using LoveRead.Model;
 using LoveRead.ViewModel;
 using LoveRead.Views.Tabs.ReadBook;
+using LoveRead.Views.Tabs.SaveBook;
 using MaterialDesignThemes.Wpf.Transitions;
 
 namespace LoveRead.Views.Tabs.BookDetails
@@ -23,13 +24,11 @@ namespace LoveRead.Views.Tabs.BookDetails
             _messanger = messanger;
 
             Messenger.Default.Register<NotificationMessage<TabSwitchMessange>>(this, ProcessTabSwitchMessange);
-
-            Start();
         }
 
         private void MoveNext()
         {
-            _messanger.NotifyTabSwitch(this, nameof(BookDetailsViewModel), new TabSwitchMessange { Data = Book });
+            _messanger.NotifyTabSwitch(this, nameof(SaveBookViewModel), new TabSwitchMessange { Data = Book });
             Transitioner.MoveNextCommand.Execute(null, BookDetailsView);
         }
 
@@ -39,7 +38,7 @@ namespace LoveRead.Views.Tabs.BookDetails
             Transitioner.MovePreviousCommand.Execute(null, BookDetailsView);
         }
 
-        private async void ProcessTabSwitchMessange(NotificationMessage<TabSwitchMessange> message)
+        private void ProcessTabSwitchMessange(NotificationMessage<TabSwitchMessange> message)
         {
             if (!Equals(GetType().Name, message.Target))
                 return;
@@ -49,7 +48,7 @@ namespace LoveRead.Views.Tabs.BookDetails
                 return;
 
             Book = book;
-            await ReloadDataAsync();
+            GetBookDetails();
         }
 
         private void GetBookDetails()

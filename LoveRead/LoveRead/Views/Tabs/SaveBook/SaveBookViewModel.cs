@@ -44,6 +44,8 @@ namespace LoveRead.Views.Tabs.SaveBook
         public override void Dispose()
             => Settings.Default.DownloadPath = SaveAsPath;
 
+        public SaveBookView SaveBookView { get; set; }
+
         private WebBook _book;
         private WebBook Book
         {
