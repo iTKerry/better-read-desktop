@@ -15,15 +15,6 @@
     </UserControl.Resources>
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"                                
-                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                    VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 28 -20">
-                <Viewbox Width="22" Height="22">
-                    <Canvas Width="24" Height="24">
-                        <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" />
-                    </Canvas>
-                </Viewbox>
-            </Button>
             <materialDesign:Card VerticalAlignment="Center" 
                                  HorizontalAlignment="Center" 
                                  Padding="16" 
