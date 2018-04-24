@@ -12,6 +12,7 @@
         Height="700" MinHeight="600"
         Width="1000" MinWidth="950"
         Icon="../../Assets/favicon.ico"
+        Background="#FAFAFA"
         DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <materialDesign:DrawerHost>
         <materialDesign:DrawerHost.BottomDrawerContent>
@@ -21,7 +22,7 @@
         </materialDesign:DrawerHost.BottomDrawerContent>
 
         <materialDesign:Transitioner SelectedIndex="0">
-            <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
+            <materialDesign:TransitionerSlide Background="#FAFAFA">
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
@@ -32,7 +33,7 @@
                 <readBook:ReadBookView />
             </materialDesign:TransitionerSlide>
 
-            <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
+            <materialDesign:TransitionerSlide Background="#FAFAFA">
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
@@ -43,7 +44,7 @@
                 <bookDetails:BookDetailsView />
             </materialDesign:TransitionerSlide>
 
-            <materialDesign:TransitionerSlide Background="{StaticResource MaterialDesignBackground}">
+            <materialDesign:TransitionerSlide Background="#FAFAFA">
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Left" Duration="0:0:0.5" />
                 </materialDesign:TransitionerSlide.ForwardWipe>

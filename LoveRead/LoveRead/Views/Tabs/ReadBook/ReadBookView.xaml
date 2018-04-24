@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
              DataContext="{Binding Source={StaticResource Locator}, Path=ReadBook}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -18,8 +19,8 @@
             <materialDesign:Card VerticalAlignment="Center" 
                                  HorizontalAlignment="Center" 
                                  Padding="16" 
-                                 materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                 Background="{StaticResource MaterialDesignPaper}">
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                 Background="White">
                 <StackPanel>
                     <TextBox Margin="16" materialDesign:HintAssist.Hint="Book address..."
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -36,7 +37,8 @@
                             materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
                             materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}"
                             materialDesign:ButtonProgressAssist.IndicatorForeground="{StaticResource PrimaryHueDarkBrush}"
-                            materialDesign:ButtonProgressAssist.IndicatorBackground="{StaticResource PrimaryHueLightBrush}">
+                            materialDesign:ButtonProgressAssist.IndicatorBackground="{StaticResource PrimaryHueLightBrush}"
+                            materialDesign:ShadowAssist.ShadowDepth="Depth3">
                         <Button.Style>
                             <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFloatingActionAccentButton}">
                                 <Style.Triggers>

@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using System.Windows;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LoveRead.Infrastructure.Services;
 using LoveRead.Model;
@@ -22,20 +23,19 @@ namespace LoveRead.Views.Tabs.BookDetails
         public BookDetailsViewModel(IMessangerService messanger)
         {
             _messanger = messanger;
-
             Messenger.Default.Register<NotificationMessage<TabSwitchMessange>>(this, ProcessTabSwitchMessange);
         }
 
         private void MoveNext()
         {
             _messanger.NotifyTabSwitch(this, nameof(SaveBookViewModel), new TabSwitchMessange { Data = Book });
-            Transitioner.MoveNextCommand.Execute(null, BookDetailsView);
+            Transitioner.MoveNextCommand.Execute(null, BookDetailsView as IInputElement);
         }
 
         private void MoveBack()
         {
             _messanger.NotifyTabSwitch(this, nameof(ReadBookViewModel), new TabSwitchMessange());
-            Transitioner.MovePreviousCommand.Execute(null, BookDetailsView);
+            Transitioner.MovePreviousCommand.Execute(null, BookDetailsView as IInputElement);
         }
 
         private void ProcessTabSwitchMessange(NotificationMessage<TabSwitchMessange> message)

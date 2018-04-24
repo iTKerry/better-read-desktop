@@ -3,41 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
              DataContext="{Binding Source={StaticResource Locator}, Path=SaveBook}">
-    <materialDesign:DialogHost>
-        <materialDesign:DialogHost.DialogContent>
-            <Grid Margin="16" Width="400" Height="550">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <ScrollViewer>
-                    <TreeView HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <TreeViewItem Header="This PC" IsExpanded="True" ItemsSource="{Binding TreeViewItems}" />
-                    </TreeView>
-                </ScrollViewer>
-                <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        IsCancel="True" Margin="0 8 8 0" Grid.Row="1"
-                        Command="materialDesign:DialogHost.CloseDialogCommand">
-                    <Button.CommandParameter>
-                        <system:Boolean>False</system:Boolean>
-                    </Button.CommandParameter>
-                    CANCEL
-                </Button>
-            </Grid>
-        </materialDesign:DialogHost.DialogContent>
-        <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
-                VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Viewbox Width="22" Height="22">
-                <Canvas Width="24" Height="24">
-                    <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" Fill="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Button}, Path=Foreground}" />
-                </Canvas>
-            </Viewbox>
-        </Button>
-    </materialDesign:DialogHost>
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <materialDesign:Card VerticalAlignment="Center" 
+                                 HorizontalAlignment="Center"
+                                 materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                 Background="White">
+                <StackPanel Orientation="Horizontal">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition Height="1" />
+                            <RowDefinition Height="50" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Name="Action1" Margin="16">
+                            <TextBlock Text="{Binding Book.Name}" Opacity="0.8" Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                            <TextBlock Text="{Binding Book.Author}" Opacity="0.6" Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
+                        </StackPanel>
+                        <GridSplitter Grid.Row="1" IsEnabled="False" Height="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"></GridSplitter>
+                        <StackPanel Grid.Row="2" Name="Action2" Orientation="Horizontal" VerticalAlignment="Center" Margin="8">
+                            <Button Style="{StaticResource MaterialDesignFlatAccentButton}">SAVE</Button>
+                            <Button Command="{Binding MoveBackCommand}" Style="{StaticResource MaterialDesignFlatButton}">BACK</Button>
+                        </StackPanel>
+                    </Grid>
+                    <Image Name="Action3" Source="{Binding Book.ImageUrl}" MaxHeight="250" />
+                </StackPanel>
+            </materialDesign:Card>
+        </StackPanel>
+    </Grid>
 </UserControl>

@@ -74,7 +74,7 @@ namespace LoveRead.Infrastructure
             }
         }
 
-        private IEnumerable<IWebBookText> GetPageText(WebPage webPage)
+        private static IEnumerable<IWebBookText> GetPageText(WebPage webPage)
         {
             var nodes = webPage.Html.CssSelect("div.MsoNormal").SingleOrDefault()?.ChildNodes.Nodes();
             if (nodes == null) yield break;

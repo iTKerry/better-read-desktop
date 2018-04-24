@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
              DataContext="{Binding Source={StaticResource Locator}, Path=BookDetails}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -12,13 +13,15 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="15" />
                 <Setter Property="Margin" Value="5" />
-                <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth2" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth0" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <materialDesign:Card Background="{StaticResource MaterialDesignPaper}" materialDesign:ShadowAssist.ShadowDepth="Depth1">
+            <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                                 Background="White">
                 <StackPanel Orientation="Horizontal" CanVerticallyScroll="True" CanHorizontallyScroll="True">
                     <StackPanel Margin="10,5,5,5" VerticalAlignment="Center">
                         <materialDesign:Card Style="{StaticResource BookDetails}">
@@ -40,7 +43,7 @@
                             </StackPanel>
                         </materialDesign:Card>
                     </StackPanel>
-                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Padding="5" Background="{StaticResource MaterialDesignPaper}" Margin="5,10,10,10">
+                    <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth5" Margin="5,10,10,10">
                         <Image Source="{Binding BookLogo}" MaxHeight="350" />
                     </materialDesign:Card>
                 </StackPanel>

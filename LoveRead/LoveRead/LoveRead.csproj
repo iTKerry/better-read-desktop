@@ -100,6 +100,7 @@
     <Compile Include="Infrastructure\Services\DownloadService.cs" />
     <Compile Include="Infrastructure\Services\MessangerService.cs" />
     <Compile Include="Infrastructure\Services\PaletteService.cs" />
+    <Compile Include="Model\Messanges.cs" />
     <Compile Include="Model\WebBook.cs" />
     <Compile Include="Model\WebBookPage.cs" />
     <Compile Include="Infrastructure\LibraryScrapper.cs" />
@@ -125,6 +126,7 @@
       <DependentUpon>SaveBookView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Tabs\SaveBook\SaveBookViewModel.cs" />
+    <Compile Include="Views\Tabs\SaveBook\SaveBookViewModel.Props.cs" />
     <Page Include="Views\Tabs\BookDetails\BookDetailsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

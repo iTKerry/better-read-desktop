@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Messaging;
-using LoveRead.Infrastructure.Services;
+using LoveRead.Model;
 using LoveRead.ViewModel;
 
 namespace LoveRead.Views.Main
