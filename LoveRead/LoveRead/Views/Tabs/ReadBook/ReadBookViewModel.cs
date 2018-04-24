@@ -75,18 +75,17 @@ namespace LoveRead.Views.Tabs.ReadBook
         private void ProcessProgressMessage(NotificationMessage<ProgressMessange> message)
         {
             ReadingProgress = (int)((double)message.Content.Current / (double)message.Content.Total * 100);
-            switch (ReadingProgress)
+            if (ReadingProgress >= 1 && ReadingProgress < 100)
             {
-                case 1:
-                    IsReading = true;
-                    IsReadButtonEnabled = false;
-                    IsBookUrlReadOnly = true;
-                    IsReadingComplete = false;
-                    break;
-                case 100:
-                    IsReading = false;
-                    IsReadingComplete = true;
-                    break;
+                IsReading = true;
+                IsReadButtonEnabled = false;
+                IsBookUrlReadOnly = true;
+                IsReadingComplete = false;
+            }
+            else
+            {
+                IsReading = false;
+                IsReadingComplete = true;
             }
         }
     }

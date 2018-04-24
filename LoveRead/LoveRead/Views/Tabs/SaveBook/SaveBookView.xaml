@@ -14,21 +14,35 @@
                                  materialDesign:ShadowAssist.ShadowDepth="Depth3"
                                  Background="White">
                 <StackPanel Orientation="Horizontal">
-                    <Grid MinWidth="250">
+                    <Grid MinWidth="250" MaxWidth="400">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition Height="1" />
                             <RowDefinition Height="50" />
                         </Grid.RowDefinitions>
-                        <StackPanel Name="Action1" Margin="16">
-                            <TextBlock Text="{Binding Book.Name}" Opacity="0.8" Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
+                        <StackPanel Name="Action1" Margin="16,24,16,16" VerticalAlignment="Top">
+                            <TextBlock Text="{Binding Book.Name}" TextWrapping="Wrap" Opacity="0.8" Style="{StaticResource MaterialDesignHeadlineTextBlock}" />
                             <TextBlock Text="{Binding Book.Author}" Opacity="0.6" Style="{StaticResource MaterialDesignSubheadingTextBlock}" />
                         </StackPanel>
                         <GridSplitter Grid.Row="1" IsEnabled="False" Height="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"></GridSplitter>
-                        <StackPanel Grid.Row="2" Name="Action2" Orientation="Horizontal" VerticalAlignment="Center" Margin="8">
-                            <Button Style="{StaticResource MaterialDesignFlatAccentButton}">SAVE</Button>
-                            <Button Command="{Binding MoveBackCommand}" Style="{StaticResource MaterialDesignFlatButton}">BACK</Button>
-                        </StackPanel>
+                        <Grid Name="Action2" Margin="8" Grid.Row="2" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <Button Command="{Binding MoveBackCommand}" Style="{StaticResource MaterialDesignFlatButton}">BACK</Button>
+                                <Button Style="{StaticResource MaterialDesignFlatAccentButton}">SAVE</Button>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <Button Command="{Binding GetSaveAsPathCommand}" Style="{StaticResource MaterialDesignFlatAccentButton}" Width="30" Padding="0" Margin="0,0,8,0">
+                                    <Button.Content>
+                                        <materialDesign:PackIcon Height="24" Width="24" Kind="FolderDownload" />
+                                    </Button.Content>
+                                </Button>
+                                <Button Command="{Binding OpenSaveAsFolderCommand}" Style="{StaticResource MaterialDesignFlatAccentButton}" Width="30" Padding="0" Margin="0,0,8,0">
+                                    <Button.Content>
+                                        <materialDesign:PackIcon Height="24" Width="24" Kind="OpenInNew" />
+                                    </Button.Content>
+                                </Button>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                     <Image Name="Action3" Source="{Binding Book.ImageUrl}" MaxHeight="250" />
                 </StackPanel>
