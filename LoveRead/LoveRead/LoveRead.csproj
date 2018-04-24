@@ -112,11 +112,6 @@
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="Views\Main\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="Views\Tabs\BookDetails\BookDetailsView.xaml.cs">
-      <DependentUpon>BookDetailsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Tabs\BookDetails\BookDetailsViewModel.cs" />
-    <Compile Include="Views\Tabs\BookDetails\BookDetailsViewModel.Props.cs" />
     <Compile Include="Views\Tabs\ReadBook\ReadBookView.xaml.cs">
       <DependentUpon>ReadBookView.xaml</DependentUpon>
     </Compile>
@@ -127,11 +122,7 @@
     </Compile>
     <Compile Include="Views\Tabs\SaveBook\SaveBookViewModel.cs" />
     <Compile Include="Views\Tabs\SaveBook\SaveBookViewModel.Props.cs" />
-    <Page Include="Views\Tabs\BookDetails\BookDetailsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Main\MainWindow.xaml">
+    <Page Include="Views\Main\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -140,8 +131,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Views\Behaviour\TextBoxBehavior.cs" />
-    <Compile Include="Views\Main\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Views\Main\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\Tabs\ReadBook\ReadBookView.xaml">

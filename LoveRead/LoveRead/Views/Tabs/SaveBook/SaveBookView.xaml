@@ -14,7 +14,7 @@
                                  materialDesign:ShadowAssist.ShadowDepth="Depth3"
                                  Background="White">
                 <StackPanel Orientation="Horizontal">
-                    <Grid>
+                    <Grid MinWidth="250">
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition Height="1" />

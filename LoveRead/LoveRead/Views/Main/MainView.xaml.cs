@@ -3,11 +3,11 @@ using LoveRead.Properties;
 
 namespace LoveRead.Views.Main
 {
-    public partial class MainWindow : IMainView
+    public partial class MainView : IMainView
     {
         private MainViewModel MainViewModel => (MainViewModel) DataContext;
 
-        public MainWindow()
+        public MainView()
         {
             InitializeComponent();
             MainViewModel.MainView = this;

@@ -9,7 +9,7 @@ using LoveRead.Infrastructure;
 using LoveRead.Infrastructure.Services;
 using LoveRead.Model;
 using LoveRead.ViewModel;
-using LoveRead.Views.Tabs.BookDetails;
+using LoveRead.Views.Tabs.SaveBook;
 using MaterialDesignThemes.Wpf.Transitions;
 
 namespace LoveRead.Views.Tabs.ReadBook
@@ -58,7 +58,7 @@ namespace LoveRead.Views.Tabs.ReadBook
 
         private void MoveNext()
         {
-            _messanger.NotifyTabSwitch(this, nameof(BookDetailsViewModel), new TabSwitchMessange {Data = Book});
+            _messanger.NotifyTabSwitch(this, nameof(SaveBookViewModel), new TabSwitchMessange {Data = Book});
             Transitioner.MoveNextCommand.Execute(null, ReadBookView as IInputElement);
         }
 
