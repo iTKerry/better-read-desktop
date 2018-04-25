@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -22,11 +21,11 @@ namespace LoveRead.Views.Tabs.SaveBook
         public RelayCommand GetSaveAsPathCommand
             => new RelayCommand(GetSaveAsPath);
 
-        public RelayCommand GenerateDocCommand
-            => new RelayCommand(() => _docService.SaveAs(Book, SaveAsPath));
-
         public RelayCommand OpenSaveAsFolderCommand
             => new RelayCommand(() => Process.Start(SaveAsPath));
+
+        public RelayCommand GenerateDocCommand
+            => new RelayCommand(() => _docService.SaveAs(Book, SaveAsPath));
 
         public RelayCommand MoveBackCommand
             => new RelayCommand(MoveBack);
@@ -70,8 +69,8 @@ namespace LoveRead.Views.Tabs.SaveBook
 
         private void MoveBack()
         {
-            _messanger.NotifyTabSwitch(this, nameof(ReadBookViewModel), new TabSwitchMessange { Data = Book });
-            Transitioner.MovePreviousCommand.Execute(null, SaveBookView as IInputElement);
+            _messanger.NotifyTabSwitch(this, nameof(ReadBookViewModel), new TabSwitchMessange(Book));
+            Transitioner.MovePreviousCommand.Execute(null, SaveBookView);
         }
 
         public override void Dispose()

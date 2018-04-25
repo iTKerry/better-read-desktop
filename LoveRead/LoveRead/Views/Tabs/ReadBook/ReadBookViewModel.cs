@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using GalaSoft.MvvmLight.Threading;
@@ -58,8 +57,8 @@ namespace LoveRead.Views.Tabs.ReadBook
 
         private void MoveNext()
         {
-            _messanger.NotifyTabSwitch(this, nameof(SaveBookViewModel), new TabSwitchMessange {Data = Book});
-            Transitioner.MoveNextCommand.Execute(null, ReadBookView as IInputElement);
+            _messanger.NotifyTabSwitch(this, nameof(SaveBookViewModel), new TabSwitchMessange(Book));
+            Transitioner.MoveNextCommand.Execute(null, ReadBookView);
         }
 
         private void ProcessTabSwitchMessange(NotificationMessage<TabSwitchMessange> message)
