@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using LoveRead.Model;
 using Xceed.Words.NET;
 
@@ -8,27 +10,35 @@ namespace LoveRead.Infrastructure.Services
     public class DocService : IDocService
     {
         private readonly IDownloadService _download;
+        private readonly IDialogBoxService _dialogService;
 
         private static readonly string DefaultDownloadPath = Directory.GetCurrentDirectory() + "\\Downloads";
         private const string FileTemplate = "{0}\\{1}.docx";
 
-        public DocService(IDownloadService download)
+        public DocService(IDownloadService download, IDialogBoxService dialogService)
         {
             _download = download;
+            _dialogService = dialogService;
         }
 
         public void Save(WebBook book)
             => SaveAs(book, DefaultDownloadPath);
 
-        public void SaveAs(WebBook book, string path)
+        public void SaveAs(WebBook book, string path, Action<bool> saveAsResult = null)
         {
             var fileName = string.Format(FileTemplate, $"{path}\\", book.Name);
-
             if (!Directory.Exists(path))
+            {
                 Directory.CreateDirectory(path);
-
+            }
             if (new DirectoryInfo(path).GetFiles().Any(f => f.Name.Contains(book.Name)))
-                return;
+            {
+                if (_dialogService.ShowMessage($"File: {book.Name} already exists. Overwrite?", "Warning!") != DialogResult.Yes)
+                {
+                    saveAsResult?.Invoke(false);
+                    return;
+                }
+            }
 
             DocX doc = DocX.Create(fileName);
             doc.DifferentFirstPage = true;
@@ -59,6 +69,7 @@ namespace LoveRead.Infrastructure.Services
             odd.AppendPageNumber(PageNumberFormat.normal);
 
             doc.Save();
+            saveAsResult?.Invoke(true);
         }
 
         private void InsertParagraph(DocX doc, string text)
@@ -97,6 +108,6 @@ namespace LoveRead.Infrastructure.Services
     public interface IDocService
     {
         void Save(WebBook book);
-        void SaveAs(WebBook book, string path);
+        void SaveAs(WebBook book, string path, Action<bool> saveAsResult);
     }
 }

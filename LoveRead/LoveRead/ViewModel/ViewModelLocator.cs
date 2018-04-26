@@ -25,6 +25,7 @@ namespace LoveRead.ViewModel
             SimpleIoc.Default.Register<ReadBookViewModel>();
             SimpleIoc.Default.Register<SaveBookViewModel>();
 
+            SimpleIoc.Default.Register<IDialogBoxService, DialogBoxService>();
             SimpleIoc.Default.Register<IDownloadService, DownloadService>();
             SimpleIoc.Default.Register<IDocService, DocService>();
             SimpleIoc.Default.Register<IMessangerService, MessangerService>();

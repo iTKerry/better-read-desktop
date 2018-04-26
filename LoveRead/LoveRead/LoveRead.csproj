@@ -96,6 +96,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\Services\DialogBoxService.cs" />
     <Compile Include="Infrastructure\Services\DocService.cs" />
     <Compile Include="Infrastructure\Services\DownloadService.cs" />
     <Compile Include="Infrastructure\Services\MessangerService.cs" />

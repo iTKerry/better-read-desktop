@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LoveRead.Infrastructure.Services;
@@ -17,23 +16,25 @@ namespace LoveRead.Views.Tabs.SaveBook
     {
         private readonly IMessangerService _messanger;
         private readonly IDocService _docService;
+        private readonly IDialogBoxService _dialogService;
 
         public RelayCommand GetSaveAsPathCommand
-            => new RelayCommand(GetSaveAsPath);
+            => new RelayCommand(GetSaveAsPathAction);
 
         public RelayCommand OpenSaveAsFolderCommand
-            => new RelayCommand(() => Process.Start(SaveAsPath));
+            => new RelayCommand(OpenSaveAsFolderAction);
 
         public RelayCommand GenerateDocCommand
-            => new RelayCommand(() => _docService.SaveAs(Book, SaveAsPath));
+            => new RelayCommand(SaveBookAsAction);
 
         public RelayCommand MoveBackCommand
-            => new RelayCommand(MoveBack);
+            => new RelayCommand(MoveBackAction);
 
-        public SaveBookViewModel(IDocService docService, IMessangerService messanger)
+        public SaveBookViewModel(IDocService docService, IMessangerService messanger, IDialogBoxService dialogService)
         {
             _docService = docService;
             _messanger = messanger;
+            _dialogService = dialogService;
             Messenger.Default.Register<NotificationMessage<TabSwitchMessange>>(this, ProcessTabSwitchMessange);
 
             Start();
@@ -60,18 +61,23 @@ namespace LoveRead.Views.Tabs.SaveBook
             await ReloadDataAsync();
         }
 
-        private void GetSaveAsPath()
-        {
-            using (var dialog = new FolderBrowserDialog())
-                if (dialog.ShowDialog() == DialogResult.OK)
-                    SaveAsPath = dialog.SelectedPath;
-        }
-
-        private void MoveBack()
+        private void MoveBackAction()
         {
             _messanger.NotifyTabSwitch(this, nameof(ReadBookViewModel), new TabSwitchMessange(Book));
             Transitioner.MovePreviousCommand.Execute(null, SaveBookView);
         }
+
+        private void GetSaveAsPathAction()
+            => _dialogService.ShowFolderBrowserDialog((isOk, path) => SaveAsPath = isOk ? path : SaveAsPath);
+
+        private void SaveBookAsAction()
+            => _docService.SaveAs(Book, SaveAsPath, isOk =>
+            {
+
+            });
+
+        private void OpenSaveAsFolderAction()
+            => Process.Start(SaveAsPath);
 
         public override void Dispose()
             => Settings.Default.DownloadPath = SaveAsPath;
