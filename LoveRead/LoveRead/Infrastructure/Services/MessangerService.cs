@@ -11,15 +11,11 @@ namespace LoveRead.Infrastructure.Services
 
         public void NotifyLog(LogMessange content) 
             => Messenger.Default.Send(new NotificationMessage<LogMessange>(this, content, "Sending NotifyLog messange"));
-
-        public void NotifyProgress(ProgressMessange content) 
-            => Messenger.Default.Send(new NotificationMessage<ProgressMessange>(this, content, "Sending Progress messange"));
     }
 
     public interface IMessangerService
     {
         void NotifyTabSwitch(BaseViewModel sender, string targetName, TabSwitchMessange content);
         void NotifyLog(LogMessange content);
-        void NotifyProgress(ProgressMessange content);
     }
 }

@@ -10,6 +10,11 @@ using ScrapySharp.Network;
 
 namespace LoveRead.Infrastructure
 {
+    public interface ILibraryScrapper
+    {
+        Task<WebBook> ReadBook(string bookUrl);
+    }
+
     public class LibraryScrapper : ILibraryScrapper
     {
         private readonly IMessangerService _messanger;
@@ -52,7 +57,7 @@ namespace LoveRead.Infrastructure
                     Author = firstPage.Html.CssSelect("a").First(a => a.GetAttributeValue("href").Contains("author=")).GetAttributeValue("title"),
                     ImageUrl = string.Format(ImagePattern, bookId),
                     PagesCount = firstPage.Html.CssSelect("div.navigation > a").Select(n => n.InnerHtml)
-                        .Where(t => int.TryParse(t, out int _)).Select(int.Parse).Max(),
+                        .Where(t => int.TryParse(t, out _)).Select(int.Parse).Max(),
                     Pages = new List<WebBookPage>()
                 };
                 return webBook;
@@ -68,7 +73,6 @@ namespace LoveRead.Infrastructure
                     var currentPage = await NavigateBrowserToPage(currentPageUrl);
                     book.Pages.Add(new WebBookPage {WebBookTexts = GetPageText(currentPage)});
 
-                    Progress(currentPageNumber, book.PagesCount);
                     currentPageNumber++;
                 }
             }
@@ -93,18 +97,5 @@ namespace LoveRead.Infrastructure
 
         private void Log(string messange) 
             => _messanger.NotifyLog(new LogMessange {Text = messange});
-
-        private void Progress(int current, int total)
-            => _messanger.NotifyProgress(new ProgressMessange
-            {
-                Current = current,
-                Total = total,
-                ProgressType = ProgressType.Reading
-            });
-    }
-
-    public interface ILibraryScrapper
-    {
-        Task<WebBook> ReadBook(string bookUrl);
     }
 }

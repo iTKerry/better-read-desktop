@@ -36,7 +36,7 @@
                             Command="{Binding ReadBookCommand}"
                             IsEnabled="{Binding IsReadButtonEnabled}" 
                             materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsReading}"
-                            materialDesign:ButtonProgressAssist.Value="{Binding ReadingProgress}"
+                            materialDesign:ButtonProgressAssist.IsIndeterminate="{Binding IsReading}"
                             materialDesign:ButtonProgressAssist.IndicatorForeground="{StaticResource PrimaryHueDarkBrush}"
                             materialDesign:ButtonProgressAssist.IndicatorBackground="{StaticResource PrimaryHueLightBrush}"
                             materialDesign:ShadowAssist.ShadowDepth="Depth4">

@@ -1,10 +1,19 @@
-﻿using LoveRead.Model;
+﻿using GalaSoft.MvvmLight.Command;
+using LoveRead.Model;
 
 namespace LoveRead.Views.Tabs.ReadBook
 {
     public partial class ReadBookViewModel
     {
         public ReadBookView ReadBookView { get; set; }
+
+        private RelayCommand _readBookCommand;
+        public RelayCommand ReadBookCommand
+            => _readBookCommand ?? (_readBookCommand = new RelayCommand(async () => await ReadBook()));
+
+        private RelayCommand _moveNextCommand;
+        public RelayCommand MoveNextCommand
+            => _moveNextCommand ?? (_moveNextCommand = new RelayCommand(MoveNext));
 
         private WebBook _book;
         private WebBook Book
